@@ -23,5 +23,16 @@ namespace WD.Common.Utility
 
             return AppSetting;
         }
+
+        /// <summary>
+        /// 取得DB連線字串
+        /// </summary>
+        /// <returns></returns>
+        public static string GetDbConnectionString(string connName)
+        {
+            return
+                System.Configuration.ConfigurationManager.
+                    ConnectionStrings[connName].ConnectionString.ToString();
+        }
     }
 }

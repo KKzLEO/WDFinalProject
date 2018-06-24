@@ -62,6 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Course\CourseDataModel.cs" />
+    <Compile Include="Course\CourseFilterModel.cs" />
+    <Compile Include="Member\MemberDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

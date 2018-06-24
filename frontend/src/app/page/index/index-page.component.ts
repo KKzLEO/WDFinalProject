@@ -9,7 +9,15 @@ import { Component } from "@angular/core";
 
 
 export class IndexPageComponent{
+    
+    public test : string[] = ["dfdsf","sdfsdfsdf"]
+    public testIf : boolean = true;
+    ngOnInit(){
+        
+    }
 
+    public callBackend(){
+        // call backend and get data
 
-
+    }
 }

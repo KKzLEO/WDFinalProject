@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { IndexPageComponent } from 'src/app/page/index/index-page.component';
 import { ShoppingCartPageComponent } from 'src/app/page/shopping-cart/shopping-cart-page.component';
 import { TeachersPageComponent } from 'src/app/page/teachers/teachers-page.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule
   ],
   declarations: [
     // Page

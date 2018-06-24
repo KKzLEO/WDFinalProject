@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageModule } from 'src/app/module/page.module';
-
+import swal from 'sweetalert';
 @NgModule({
   declarations: [
     AppComponent

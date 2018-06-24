@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WD.Service
+namespace WD.Service.Course
 {
-    public class Class1
+    public class CourseService
     {
     }
 }
