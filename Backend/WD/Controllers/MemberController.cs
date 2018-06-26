@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Security;
 using WD.Model.Member;
 using WD.Models;
@@ -14,6 +15,7 @@ using WD.Service.Member;
 namespace WD.Controllers
 {
     [RoutePrefix("access")]
+    [EnableCors("*","*","*")]
     public class MemberController : ApiController
     {
         private MemberService MemberService = new MemberService();
@@ -58,7 +60,7 @@ namespace WD.Controllers
 
         [Route("logout")]
         [HttpPost()]
-        [Authorize()]
+        //[Authorize()]
         public IHttpActionResult Logout() {
             this.ClearCookie();
             ApiResult apiResult = new ApiResult();

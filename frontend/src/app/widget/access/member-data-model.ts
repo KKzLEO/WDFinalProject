@@ -1,4 +1,4 @@
-export class LoginDataModel {
+export class MemberDataModel {
     account : string;
     password: string;
     eName:string;

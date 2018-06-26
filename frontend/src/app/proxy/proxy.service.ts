@@ -13,6 +13,8 @@ export class ProxyService extends ProxyCoreService {
     private proxyHeaders: Headers;
     constructor(http: Http) {
         super(http);
+        //預設header
+        this.proxyHeaders = new Headers({ 'Content-Type': "application/json" });
     }
 
     /**
@@ -44,18 +46,13 @@ export class ProxyService extends ProxyCoreService {
         return new RequestOptions({ headers: this.proxyHeaders });
     }
 
-    // private setProxyHeaders() {
-    //     if (this.toolKit.objUtility.isNullOrUndefined(this.accessControl.accessInfo) ||
-    //         this.toolKit.objUtility.isNullOrUndefined(this.accessControl.accessInfo.token)) {
-    //         this.proxyHeaders=null;
-    //     }else{
-    //         this.proxyHeaders = new Headers({
-    //             'Content-Type': this.toolKit.config.jsonContentType,
-    //             'Authorization': this.toolKit.config.tokenType + ' ' + this.accessControl.accessInfo.token,
-    //         });
-    //     }
+    public setProxyHeaders() {
+  
+        this.proxyHeaders = new Headers({
+            'Content-Type': "application/json"
+        });
 
 
-    // }
+    }
 
 }

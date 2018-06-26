@@ -1,3 +1,4 @@
+<!-- {{ userData | json }} -->
 <header>
     <nav class="navbar">
         <div class="uk-container uk-navbar-container navbar-container" uk-navbar>
@@ -7,16 +8,22 @@
                     <span class="btn-search"><i class="material-icons">search</i></span>
                 </div>
             </div>
-            <div class="uk-navbar-right">
-                
+            <div class="uk-navbar-right" *ngIf="!isLoggedin">
+                <button type="button" class="uk-button uk-button-text btn-go-teacher-page">師資介紹</button>
                 <button type="button" class="uk-button btn-login" (click)="openLoginWindow()">登入</button>
-                <button type="button" class="uk-button btn-register">註冊</button>
+                <button type="button" class="uk-button btn-register" (click)="openRegisterWindow()">註冊</button>
+            </div>
+            <div class="uk-navbar-right" *ngIf="isLoggedin">
+                <!-- <button type="button" class="uk-button btn-login" (click)="testauth()">測試授權</button> -->
+                <button type="button" class="uk-button uk-button-text btn-go-teacher-page">師資介紹</button>
+                <button *ngIf="isAdmin" type="button" class="uk-button uk-button-text btn-course-maintain">課程管理</button>
+                <button type="button" class="uk-button btn-login" (click)="logout()">登出</button>
             </div>
         </div>
     </nav>
 </header>
 
-<login #loginComponent></login>
+<access #accessComponent></access>
 
 <router-outlet></router-outlet>
 

@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import swal from 'sweetalert';
 import { ApiUrlConfigService } from 'src/app/config/api-url-config.service';
 import { FormsModule } from '@angular/forms';
+import { UserService } from 'src/app/service/user.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     ProxyService,
-    ApiUrlConfigService
+    ApiUrlConfigService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

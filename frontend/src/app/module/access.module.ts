@@ -1,7 +1,7 @@
 import { AppRoutingModule } from './../app-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from 'src/app/widget/login/login.component';
+import { AccessComponent } from 'src/app/widget/access/access.component';
 import { RegisterComponent } from 'src/app/widget/register/register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -13,11 +13,11 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   declarations: [
-    LoginComponent,
+    AccessComponent,
     RegisterComponent
   ],
   exports: [
-    LoginComponent,
+    AccessComponent,
     RegisterComponent
   ]
 

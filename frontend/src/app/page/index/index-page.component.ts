@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { LoginComponent } from "../../widget/login/login.component";
+import { AccessComponent } from "../../widget/access/access.component";
 import { ViewChild } from "@angular/core";
 
 
@@ -11,13 +11,14 @@ import { ViewChild } from "@angular/core";
 
 export class IndexPageComponent{
 
-    @ViewChild("loginComponent") loginComponent : LoginComponent;
+    @ViewChild("accessComponent") accessComponent : AccessComponent;
 
     ngOnInit(){
         
     }
     
     public register(){
+        this.accessComponent.openRegisterWindow();
     }
         
     public callBackend(){
