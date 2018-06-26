@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-
+import { LoginComponent } from "../../widget/login/login.component";
+import { ViewChild } from "@angular/core";
 
 
 @Component({
@@ -9,13 +10,16 @@ import { Component } from "@angular/core";
 
 
 export class IndexPageComponent{
-    
-    public test : string[] = ["dfdsf","sdfsdfsdf"]
-    public testIf : boolean = true;
+
+    @ViewChild("loginComponent") loginComponent : LoginComponent;
+
     ngOnInit(){
         
     }
-
+    
+    public register(){
+    }
+        
     public callBackend(){
         // call backend and get data
 

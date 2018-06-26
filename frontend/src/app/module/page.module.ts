@@ -4,11 +4,13 @@ import { IndexPageComponent } from 'src/app/page/index/index-page.component';
 import { ShoppingCartPageComponent } from 'src/app/page/shopping-cart/shopping-cart-page.component';
 import { TeachersPageComponent } from 'src/app/page/teachers/teachers-page.component';
 import { CommonModule } from '@angular/common';
+import { AccessModule } from 'src/app/module/access.module';
 
 @NgModule({
   imports: [
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    AccessModule
   ],
   declarations: [
     // Page

@@ -27,7 +27,8 @@
             ],
             "scripts": [
               "src/assets/js/uikit.min.js",
-              "src/assets/js/wow.min.js"
+              "src/assets/js/wow.min.js",
+              "src/assets/js/uikit-icons.min.js"
             ]
           },
           "configurations": {

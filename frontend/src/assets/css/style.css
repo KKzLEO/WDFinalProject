@@ -1,0 +1,418 @@
+
+@import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+body {
+    font-family: 'Noto Sans TC' !important;
+    /* height: 100%; */
+}
+
+/* html{
+    height: 100%;
+} */
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    background: #f4b941 !important;
+    position: fixed;
+    z-index: 100;
+}
+
+.align-center{
+    margin: 0 auto;
+}
+
+.navbar-container{
+    height: inherit;
+    background: #f4b941 !important;
+}
+
+.btn-login{
+    /* padding: 2px 7px !important; */
+    margin-right: 8px !important;
+    background: transparent;
+    color: white !important;
+    border: 1px solid white !important;
+    font-weight: 700;
+}
+
+.btn-login:hover{
+    background: #ffd581;
+}
+
+.btn-register{
+    /* padding: 2px 7px !important; */
+    margin-right: 5px !important;
+    background: #ffffff;
+    color: #f4b941 !important;
+    border: 1px solid white !important;
+    font-weight: 700;
+}
+
+.btn-register:hover{
+    background: #fff3da;
+}
+
+.search-bar-group{
+    display: inline-block;
+    position: relative;
+    width: 400px;
+}
+
+.search-bar-input{
+    background: #ffd581 !important;
+    border: none !important;
+    color: white !important;
+    border-radius: 2px 0 0 2px !important;
+    font-size: 13px !important;
+    padding: 0 15px;
+}
+
+.search-bar-input::placeholder{
+    color: #ffeeca !important;
+}
+
+.btn-search{
+    width:40px;
+    height: 40px;
+    line-height: 51px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    color: #ffeeca;
+    cursor: pointer;
+}
+
+.btn-search:hover{
+    background: white;
+    color:#f4b941;
+}
+
+.banner{
+    width:100%;
+    padding-top: 160px;
+    min-height: 700px;
+    background: url("../images/banner.png") no-repeat center top / cover;
+    background-size: 100% 100%; 
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.banner-title{
+    margin: 10px 0;
+    color: white;
+    font-weight: 500;
+    /* text-shadow: -1px 0 1px #000; */
+    font-family: 'Noto Sans TC' !important;
+    font-size:50px;
+}
+
+.btn-start{
+    background: transparent;
+    color: white !important;
+    border: 1px solid white !important;
+    font-weight: 900;
+    margin-top:20px !important;
+    
+}
+
+.btn-start:hover{
+    background: #ffd581;
+}
+
+.intro-1{
+    /* height: 550px; */
+    background: url("../images/bg_1.png") no-repeat center top / cover;
+    background-size: 100% 100%; 
+    box-sizing: border-box;
+    padding-top:80px;
+    padding-bottom: 100px;
+}
+
+.intro-1-title{
+    color:white;
+    font-weight: 1;
+    font-size:50px;
+    font-family: 'Noto Sans TC' !important;
+    margin-bottom: 70px;
+    opacity: 0.9;
+}
+
+
+.intro-1-img{
+    height: 150px;
+    weight: 150px;
+    opacity: 0.8;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.intro-2-img{
+    height: 300px;
+    weight: 300px;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.intro-1-desc{
+    color:white;
+    opacity: 0.9;
+    font-family: 'Noto Sans TC' !important;
+    font-size:19px;
+    font-weight: 1;
+    text-align: center;
+    margin: 1px;
+}
+
+.intro-2{
+    /* height: 550px; */
+    /* background: url("../images/bg_1.png") no-repeat center top / cover; */
+    background-size: 100% 100%; 
+    box-sizing: border-box;
+    padding-top:80px;
+    padding-bottom: 100px;
+}
+
+.intro-2-title{
+    color:#343434;
+    font-weight: 1;
+    font-size:50px;
+    font-family: 'Noto Sans TC' !important;
+    margin-bottom: 70px;
+    opacity: 0.9;
+}
+
+.intro-2-content-title{
+    color:#343434;
+    font-weight: 300;
+    font-size:40px;
+    font-family: 'Noto Sans TC' !important;
+    margin-top:20px;
+    margin-bottom: 40px;
+}
+
+.intro-2-desc{
+    color:#343434;
+    font-weight: 100;
+    font-size:25px;
+    font-family: 'Noto Sans TC' !important;
+    margin-top:20px;
+    text-align: justify;
+    text-justify:inter-ideograph;
+}
+
+.intro-3{
+    /* height: 550px; */
+    /* background: url("../images/bg_1.png") no-repeat center top / cover; */
+    background-size: 100% 100%; 
+    box-sizing: border-box;
+    padding-top:80px;
+    padding-bottom: 100px;
+}
+
+.intro-3-title{
+    color:#343434;
+    font-weight: 300;
+    font-size:50px;
+    font-family: 'Noto Sans TC' !important;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.intro-3-subtitle{
+    color:#343434;
+    font-weight: 300;
+    font-size:30px;
+    font-family: 'Noto Sans TC' !important;
+    margin-bottom: 1px;
+    margin-top:0px;
+    opacity: 0.9;
+}
+
+.img-course-promise img{
+    width:50px;
+    height: 50px;
+}
+
+.img-course-promise-xs img{
+    width:30px;
+    height: 30px;
+}
+
+.promise-container{
+    width: 430px;
+}
+
+.intro-join-us{
+    background-color: #f4b941; 
+    box-sizing: border-box;
+    padding-top:100px;
+    padding-bottom: 100px;
+    text-align: center;
+    position: relative;
+}
+
+.intro-join-us-title{
+    color:white;
+    font-weight: 700;
+    font-size:45px;
+    font-family: 'Noto Sans TC' !important;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.btn-join-us{
+    margin-right: 8px !important;
+    background: transparent;
+    color: white !important;
+    border: 1px solid white !important;
+    font-weight: 700;
+}
+
+.btn-join-us:hover{
+    color:#f4b941 !important;
+    background: white;
+}
+
+.img-join-us-left-quote{
+    position: absolute;
+    left: 270px;
+    top: -15px;
+    width: 250px;
+    height: 250px;
+}
+
+.img-join-us-right-quote{
+    position: absolute;
+    right: 270px;
+    bottom:-15px;
+    width: 250px;
+    height: 250px;
+}
+
+.course-list{
+    background-size: 100% 100%; 
+    box-sizing: border-box;
+    padding-top:80px;
+    padding-bottom: 100px;
+    /* background: #f7f8fa; */
+}
+
+.course-list-title{
+    color:black;
+    font-weight: 300;
+    font-size:50px;
+    font-family: 'Noto Sans TC' !important;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.img-course-list img{
+    width:70px;
+    height: 70px;
+}
+
+.course-card-group{
+    margin-top: 65px;
+}
+
+.img-course{
+    width:240px;
+    height: 135px;
+}
+
+.course-card-body{
+    padding: 22px 22px !important;
+}
+
+.course-card-title{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 300;
+    font-size:16px !important;
+    margin-bottom: 16px !important;
+}
+
+.course-card-author{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 1;
+    font-size:13px !important;
+    margin:0;
+}
+
+.course-card-score{
+    margin-top: 16px;
+}
+
+.course-card-score i{
+    color: #f4c150;
+    font-size:16px;
+}
+
+.course-card-score-text{
+    font-size:12px;
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 1;
+}
+
+.course-card-price{
+    margin-top: 5px;
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 1;
+}
+
+.course-card-price i {
+    font-weight: 1;
+}
+
+.login-modal{
+    padding: 24px 35px !important;
+    width: 380px !important;
+    height: 450px !important;
+}
+
+.login-heading{
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-avatar{
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 50%;
+    background-image: url(../images/user.png);
+    background-repeat: no-repeat;
+    background-color: rgba(0,0,0,.085);
+    background-position: 50% 1px;
+}
+
+.login-input{
+    border-top:none !important;
+    border-left: none !important;
+    border-right:none !important;
+    color:black !important;
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 300 !important;
+    padding-left: 0 !important;
+}
+
+.login-input[type="password"] {
+    font:small-caption !important;
+}
+
+.btn-modal-login{
+    line-height: 42px!important;
+    font-size: 16px!important;
+    margin-bottom: 0;
+}
+
+.btn-fb-login{
+    background: #3b5998 !important;
+}
+
+.right-now-register-text{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 300 !important;
+    font-size: 15px;
+}
