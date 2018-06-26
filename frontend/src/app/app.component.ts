@@ -6,6 +6,9 @@ import { MemberDataModel } from 'src/app/widget/access/member-data-model';
 import { ProxyService } from 'src/app/proxy/proxy.service';
 import { ApiUrlConfigService } from 'src/app/config/api-url-config.service';
 import { Headers } from '@angular/http';
+import { CourseFilterModel } from 'src/app/page/course/course-filter-model';
+import { CourseService } from 'src/app/service/course.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -14,17 +17,30 @@ import { Headers } from '@angular/http';
 })
 export class AppComponent {
 
+    public theme : string ="white";
+
     public isLoggedin: boolean = false;
     public isAdmin : boolean = false;
     public userData:MemberDataModel;
-
-    constructor(private userService:UserService,private proxy:ProxyService,private config:ApiUrlConfigService){
+    public courseFilterArg : CourseFilterModel = new CourseFilterModel();
+    @ViewChild("accessComponent") accessComponent : AccessComponent;
+    constructor(private router:Router,private courseService:CourseService,private userService:UserService,private proxy:ProxyService,private config:ApiUrlConfigService){
       this.isLoggedin = this.userService.isLoggedin;
       this.isAdmin = this.userService.isAdmin;
       this.userService.addListener(this.userServiceReceiver.bind(this));
     }
 
-    @ViewChild("accessComponent") accessComponent : AccessComponent;
+    ngOnInit(){
+      this.searchCourse();
+      setTimeout(() => {
+        if(this.router.url === '/shopping-cart') this.theme="white";
+      }, 100);
+      
+    }
+
+    ngAfterViewInit(){
+
+    }
     
     public openLoginWindow(){
       this.accessComponent.openLoginWindow();
@@ -49,7 +65,6 @@ export class AppComponent {
         if (willDelete) {
           this.userService.logout();
         } else {
-          swal("登出失敗");
         }
       });
       
@@ -70,7 +85,26 @@ export class AppComponent {
       )
     }
 
+    public searchCourse(){
+        this.courseService.searchCourse(this.courseFilterArg);
+    }
 
+    public goShoppingCartPage(){
+        this.router.navigateByUrl('shopping-cart');
+        this.changeNavTheme("white");
+    }
 
+    public goHomePage(){
+        window.location.href = "./index";
+    }
+
+    public changeNavTheme(theme){
+        this.theme = theme;
+    }
+
+    public themeClass(className){
+        if(this.theme == '') return className;
+        return className + "-" + this.theme + "-theme";
+    }
 
 }

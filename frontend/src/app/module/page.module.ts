@@ -5,6 +5,8 @@ import { ShoppingCartPageComponent } from 'src/app/page/shopping-cart/shopping-c
 import { TeachersPageComponent } from 'src/app/page/teachers/teachers-page.component';
 import { CommonModule } from '@angular/common';
 import { AccessModule } from 'src/app/module/access.module';
+import { CourseListPageComponent } from 'src/app/page/course/course-list-page.component';
+import { MaintainPageComponent } from 'src/app/page/maintain/maintain-page.component';
 
 @NgModule({
   imports: [
@@ -16,13 +18,17 @@ import { AccessModule } from 'src/app/module/access.module';
     // Page
     IndexPageComponent,
     ShoppingCartPageComponent,
-    TeachersPageComponent
+    TeachersPageComponent,
+    CourseListPageComponent,
+    MaintainPageComponent
   ],
   exports: [
     // Page
     IndexPageComponent,
     ShoppingCartPageComponent,
-    TeachersPageComponent
+    TeachersPageComponent,
+    CourseListPageComponent,
+    MaintainPageComponent
   ]
 
 })

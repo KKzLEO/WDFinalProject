@@ -12,5 +12,11 @@ export class ApiUrlConfigService {
         return this.apiRootUrl + "/access";
     }
 
+    get apiCourseUrl():string{
+        return this.apiRootUrl + "/course";
+    }
 
+    get apiGetCourseImageUrl():string{
+        return this.apiCourseUrl + "/image/";
+    }
 }

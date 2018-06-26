@@ -50,14 +50,15 @@ export class AccessComponent {
 
     public login(){
         this.userService.login(this.loginData);
-        this.clear();
+        this.clearLoginData();
     }
 
     public register(){
         this.userService.register(this.registerData);
+        this.clearRegisterData();
     }
 
-    public clear(){
+    public clearLoginData(){
         this.loginData.account = "";
         this.loginData.password = "";
     }

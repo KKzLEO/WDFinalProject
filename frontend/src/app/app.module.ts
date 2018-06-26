@@ -11,6 +11,7 @@ import swal from 'sweetalert';
 import { ApiUrlConfigService } from 'src/app/config/api-url-config.service';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
+import { CourseService } from 'src/app/service/course.service';
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +29,8 @@ import { UserService } from 'src/app/service/user.service';
   providers: [
     ProxyService,
     ApiUrlConfigService,
-    UserService
+    UserService,
+    CourseService
   ],
   bootstrap: [AppComponent]
 })

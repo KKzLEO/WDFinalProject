@@ -39,7 +39,7 @@
 </div>
 
 <div class="uk-flex-top" uk-modal #registerWindow> 
-    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical login-modal">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical register-modal">
 
         <button class="uk-modal-close-default" type="button" uk-close></button>
 
@@ -65,27 +65,34 @@
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">密碼確認</label>
                     <div class="uk-form-controls">
-                        <input name="password" class="uk-input register-input" [(ngModel)]="registerData.password" type="password">
+                        <input name="password" class="uk-input register-input " [(ngModel)]="registerData.password" type="password">
                     </div>
                 </div>
+
                 <div class="uk-margin">
+                        
                     <label class="uk-form-label" for="form-stacked-text">Email</label>
                     <div class="uk-form-controls">
                         <input name="account" class="uk-input register-input" [(ngModel)]="registerData.email" type="text">
                     </div>
                 </div>
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">中文姓名</label>
-                    <div class="uk-form-controls">
-                        <input name="account" class="uk-input register-input" [(ngModel)]="registerData.cName" type="text">
+                <div class="uk-child-width-1-2@m uk-margin" uk-grid>
+                    <div>
+                        <label class="uk-form-label" for="form-stacked-text">英文姓名</label>
+                        <div class="uk-form-controls">
+                            <input name="account" class="uk-input register-input" [(ngModel)]="registerData.eName" type="text">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="uk-form-label" for="form-stacked-text">中文姓名</label>
+                        <div class="uk-form-controls">
+                            <input name="account" class="uk-input register-input" [(ngModel)]="registerData.cName" type="text">
+                        </div>
                     </div>
                 </div>
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-stacked-text">英文姓名</label>
-                    <div class="uk-form-controls">
-                        <input name="account" class="uk-input register-input" [(ngModel)]="registerData.eName" type="text">
-                    </div>
-                </div>
+                
+                
+                
                 <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
                     <label><input class="uk-radio" type="radio" [value]="'1'" [(ngModel)]="registerData.titleCode" name="radio2"> 成為學生</label>
                     <label><input class="uk-radio" type="radio" [value]="'2'" [(ngModel)]="registerData.titleCode" name="radio2"> 成為講師</label>

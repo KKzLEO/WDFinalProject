@@ -1,8 +1,8 @@
 
 <div class="banner">
     <h1 class="uk-text-center banner-title" >E-LEARNING</h1>
-    <h1 class="uk-text-center banner-title">讓你學習更EASY</h1>
-    <button class="uk-button btn-start">馬上開始</button>
+    <h1 class="uk-text-center banner-subtitle">讓你學習更EASY</h1>
+    <button class="uk-button btn-start">查看全部課程</button>
 </div>
 
 <div class="intro-1">
@@ -80,14 +80,14 @@
     <h1 class="uk-text-center course-list-title"><span class="img-course-list"><img src="../../assets/images/img_course_list.png" alt=""></span> 課程清單</h1>
     <div class="uk-container align-center course-card-group">
         <div class="uk-child-width-1-2-@s uk-child-width-1-5@m uk-grid-small" uk-grid>
-            <div>
+            <div *ngFor="let course of courseList">
                 <div class="uk-card uk-card-default uk-card-hover">
                     <div class="uk-card-media-top">
-                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
+                        <img class="img-course" src="{{ course.courseImageUrl }}" alt="">
                     </div>
                     <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">Angular 實戰演練</h3>
-                        <h4 class="course-card-author">leo lee</h4>
+                        <h3 class="uk-card-title course-card-title">{{ course.courseName }}</h3>
+                        <h4 class="course-card-author">{{ course.teacherEName }} {{ course.teacherCName }}</h4>
                         <div class="course-card-score">
                             <span><i class="material-icons">star</i></span>
                             <span><i class="material-icons">star</i></span>
@@ -96,7 +96,7 @@
                             <span><i class="material-icons">star</i></span>
                             <span class="course-card-score-text">　5(264)</span>
                         </div>
-                        <h4 class="uk-text-right course-card-price">$779</h4>
+                        <h4 class="uk-text-right course-card-price">${{ course.price }}</h4>
                     </div>
                 </div>
             </div>

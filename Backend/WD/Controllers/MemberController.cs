@@ -15,7 +15,6 @@ using WD.Service.Member;
 namespace WD.Controllers
 {
     [RoutePrefix("access")]
-    [EnableCors("*","*","*")]
     public class MemberController : ApiController
     {
         private MemberService MemberService = new MemberService();
