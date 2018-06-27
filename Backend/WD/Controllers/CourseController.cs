@@ -9,7 +9,6 @@ using System.Web.Http;
 using WD.Model.Course;
 using WD.Models;
 using WD.Service.Course;
-
 namespace WD.Controllers
 {
     [RoutePrefix("course")]

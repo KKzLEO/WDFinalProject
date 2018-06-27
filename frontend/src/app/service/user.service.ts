@@ -39,6 +39,7 @@ export class UserService {
             r=>{
                 if(r.status === 900){
                     swal(r.message);
+                    this.notify("go_register");
                 }else{
                     swal({title:r.message,text:"歡迎登入，"+ r.data.cName,icon: "success"});
                     localStorage.setItem('user',JSON.stringify(r.data));

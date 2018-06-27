@@ -10,6 +10,7 @@ import { EventEmitter } from "@angular/core";
 import swal from 'sweetalert';
 import { UserService } from "src/app/service/user.service";
 import { Observable } from "rxjs";
+import { FacebookService, InitParams, LoginResponse, UIParams, UIResponse } from "ngx-facebook";
 declare var UIkit : any;
 
 @Component({
@@ -19,8 +20,15 @@ declare var UIkit : any;
 
 export class AccessComponent {
 
-    constructor(private userService:UserService){
-        
+    constructor(private userService:UserService,private fb: FacebookService){
+        let initParams: InitParams = {
+            appId: '213790156122801',
+            xfbml: true,
+            version: 'v2.8'
+        };
+       
+        fb.init(initParams);
+        this.userService.addListener(this.userServiceReceiver.bind(this));
     }
     @ViewChild("loginWindow") loginWindow : ElementRef;
     @ViewChild("registerWindow") registerWindow : ElementRef;
@@ -30,6 +38,10 @@ export class AccessComponent {
 
     ngOninit(){
         this.registerData.titleCode= "1";
+    }
+
+    public userServiceReceiver(message){
+        if(message=="go_register") this.goRegisterPage();
     }
 
     public openLoginWindow(){
@@ -78,4 +90,34 @@ export class AccessComponent {
         this.openRegisterWindow();
     }
 
+    public loginWithFacebook(): void {
+        this.fb.login()
+          .then((response: LoginResponse) =>{
+            this.BindingFbIdAndLogin(response.authResponse.accessToken);
+            
+          })
+          .catch((error: any) => console.error(error));
+    }
+    public logoutWithFacebook(): void {
+        this.fb.logout().then(() => console.log('Logged out!'));
+    }
+
+    public share(url: string) {
+ 
+        let params: UIParams = {
+          href: 'https://github.com/zyra/ngx-facebook',
+          method: 'share'
+        };
+       
+        this.fb.ui(params)
+          .then((res: UIResponse) => console.log(res))
+          .catch((e: any) => console.error(e));
+       
+    }
+
+    public BindingFbIdAndLogin(token:string){
+        this.loginData.fbToken = token;
+        this.registerData.fbToken = token;
+        this.login();
+    }
 }

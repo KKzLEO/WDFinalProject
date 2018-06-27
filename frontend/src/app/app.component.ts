@@ -56,7 +56,7 @@ export class AppComponent {
       this.accessComponent.openRegisterWindow();
     }
 
-    public userServiceReceiver(message:boolean){
+    public userServiceReceiver(message){
       this.isLoggedin = this.userService.isLoggedin;
       this.isAdmin = this.userService.isAdmin;
     }
@@ -99,6 +99,11 @@ export class AppComponent {
         this.router.navigateByUrl('shopping-cart');
         this.changeNavTheme("white");
     }
+
+    public goTeachersPagePage(){
+      this.router.navigateByUrl('teachers');
+      this.changeNavTheme("white");
+  }
 
     public goHomePage(){
         window.location.href = "./index";

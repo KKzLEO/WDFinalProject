@@ -7,4 +7,5 @@ export class MemberDataModel {
     titleName:string;
     perSerilNo:string;
     email:string;
+    fbToken : string;
 }

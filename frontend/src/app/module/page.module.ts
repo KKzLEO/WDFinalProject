@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AccessModule } from 'src/app/module/access.module';
 import { CourseListPageComponent } from 'src/app/page/course/course-list-page.component';
 import { MaintainPageComponent } from 'src/app/page/maintain/maintain-page.component';
+import { CoursePageComponent } from 'src/app/page/course/course-page.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { MaintainPageComponent } from 'src/app/page/maintain/maintain-page.compo
     ShoppingCartPageComponent,
     TeachersPageComponent,
     CourseListPageComponent,
-    MaintainPageComponent
+    MaintainPageComponent,
+    CoursePageComponent
   ],
   exports: [
     // Page
@@ -28,7 +30,8 @@ import { MaintainPageComponent } from 'src/app/page/maintain/maintain-page.compo
     ShoppingCartPageComponent,
     TeachersPageComponent,
     CourseListPageComponent,
-    MaintainPageComponent
+    MaintainPageComponent,
+    CoursePageComponent
   ]
 
 })

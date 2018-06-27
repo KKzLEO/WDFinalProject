@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IndexPageComponent } from 'src/app/page/index/index-page.component';
 import { TeachersPageComponent } from 'src/app/page/teachers/teachers-page.component';
 import { ShoppingCartPageComponent } from 'src/app/page/shopping-cart/shopping-cart-page.component';
+import { CoursePageComponent } from 'src/app/page/course/course-page.component';
 
 // import { DashboardContainerComponent } from './dashboard/dashboard-container.component';
 // import { AppSpaComponent } from './app-spa.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
     { path: 'index', pathMatch: 'full', component: IndexPageComponent },
     { path: 'teachers', pathMatch: 'full', component: TeachersPageComponent },
     { path: 'shopping-cart', pathMatch: 'full', component: ShoppingCartPageComponent },
+    { path: 'course-detail', pathMatch: 'full', component: CoursePageComponent },
     // { path: 'loginfail', pathMatch: 'full', component: LoginfailPageComponent },
     // { path: 'about', pathMatch: 'full', component: AboutPageComponent },
     // { path: 'error', pathMatch: 'full', component: ErrorPageComponent },

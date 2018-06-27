@@ -16,5 +16,7 @@ namespace WD.Model.Member
         public string TitleName { get; set; }
         public string PerSerilNo { get; set; }
         public string Email { get; set; }
+        public string FbToken { get; set; }
+        public string FbId { get; set; }
     }
 }

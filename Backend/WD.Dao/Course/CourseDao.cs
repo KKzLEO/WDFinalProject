@@ -35,6 +35,11 @@ namespace WD.Dao.Course
 	                              ,C.C_NAME AS TeacherCName
                                   ,A.PRICE AS Price
                                   ,A.COURSE_IMAGE_NAME AS CourseImageName
+                                  ,A.CRE_DATE AS CreDate
+                                  ,A.CRE_USR AS CreUsr
+                                  ,A.MOD_DATE AS ModDate
+                                  ,A.MOD_USR AS ModUsr
+                                  ,A.TTL_HR AS TtlHr
                             FROM COURSE AS A JOIN TEACHERS AS B ON A.COURSE_SERIL_NO = B.COURSE_SERIL_NO
                             JOIN USERS AS C ON B.PER_SERIL_NO = C.PER_SERIL_NO
                             JOIN COURSE_CATEGORY_CODE AS D ON A.CATEGORY_CODE = D.CATEGORY_CODE

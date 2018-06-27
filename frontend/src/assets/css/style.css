@@ -19,6 +19,7 @@ body {
 }
 
 .navbar-white-theme{
+    z-index: 2000;
     width: 100%;
     height: 60px;
     background: white;
@@ -33,6 +34,7 @@ body {
     margin-right: 20px;
     cursor: pointer;
 }
+
 
 .align-center{
     margin: 0 auto;
@@ -618,13 +620,201 @@ body {
 
 .shopping-cart-header{
     min-height: 200px;
-    background: #f7dca5;
+    background: #EC5252;
     box-sizing: border-box;
     padding-top: 100px;
 }
 
 .shopping-cart-header-title{
     font-family: 'Noto Sans TC' !important;
-    font-weight: 1;
+    font-weight: 300;
     color:white;
+    font-size:34px;
+}
+
+.shopping-cart-header-title i {
+    font-size:29px;
+}
+
+.shopping-cart-content{
+    margin-top:60px;
+}
+
+.shopping-cart-course-image {
+    width: 150px;
+    height: 88px;
+}
+
+.shopping-cart-card{
+    padding: 10px;
+    padding-right: 25px;
+    position: relative;
+}
+
+.shopping-cart-card-content{
+    padding: 0px 10px !important;
+    display: inline-block;
+} 
+
+.shopping-card-title{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0px 0 10px 0;
+}
+
+.shopping-card-author{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 1;
+    font-size: 16px;
+    margin: 0;
+    margin-top: 2px;
+}
+
+.shopping-card-price{
+    /* position: absolute;
+    right: 25px;
+    top:35px; */
+    font-size: 28px;
+    font-weight: 1;
+    
+}
+
+.shopping-card-right{
+    display: inline-block;
+    text-align: right;
+}
+
+.btn-shopping-card-cancel{
+    position: absolute;
+    top:5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.shopping-card-total-text{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 1;
+    margin-bottom: 0;
+}
+
+.shopping-card-total-price{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 500;
+    color:#EC5252;
+    text-align: center;
+    /* margin-top:10px; */
+}
+
+.shopping-card-go-pay{
+    background: #EC5252;
+    color:white;
+}
+
+.shopping-cart-title{
+    margin-bottom: 15px;
+}
+
+.course-card-hover{
+    z-index: 1030;
+    box-shadow: 0 4px 16px rgba(20,23,28,.25);
+    width:380px;
+    /* min-height: 500px; */
+}
+
+.last-update-time{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 1;
+    font-size: 15px;
+    margin:0;
+}
+
+.course-card-hover-title{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 300;
+    font-size: 22px;
+    margin-top:10px;
+}
+
+.course-card-hover-teacher{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 100;
+    font-size: 16px;
+    margin-top:10px;
+}
+
+.course-card-hover-teacher i{
+    font-size: 16px;
+}
+
+.course-card-hover-ttlhr{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 100;
+    font-size: 16px;
+    margin-top:10px;
+    margin-left:14px;
+}
+
+.course-card-hover-ttlhr i{
+    font-size: 16px;
+}
+
+.course-card-hover-desc{
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 100;
+    font-size: 17px;
+    margin-top:20px;
+    
+}
+
+.btn-add-course-to-shopping-cart{
+    background: #EC5252;
+    color:white;
+    margin-top:100px;
+}
+
+.course-item{
+    margin-top:10px !important;
+}
+
+.customer-footer{
+    height: 500px;
+    background:#eb7f7f;
+    margin-top: 100px;
+    box-sizing: border-box;
+    padding-top:60px;
+}
+
+.contact-us{
+    font-size:50px;
+    margin-bottom: 75px;
+    opacity: 0.9;
+    color:white;
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 500;
+}
+
+.contact-us i{
+    font-size: 40px;
+}
+
+.footer-column-text{
+    color:white;
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 500;
+    font-size:28px;
+    margin-bottom: 20px;
+}
+
+.footer-column-subtext{
+    color:white;
+    font-family: 'Noto Sans TC' !important;
+    font-weight: 100;
+    font-size:20px;
+    margin:0;
+    margin-top:1px;
+}
+
+.footer-column-subtext i {
+    font-size: 17px;
 }

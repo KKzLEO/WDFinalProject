@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Facebook;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,20 @@ namespace WD.Controllers
         [Route("login")]
         [HttpPost()]
         public IHttpActionResult Login(MemberDataModel member) {
-            member.Password = WD.Common.Utility.SecurityUtility.AESEnCrypt(member.Password);
+
+            if (!string.IsNullOrEmpty(member.FbToken))
+            {
+                var client = new FacebookClient(member.FbToken);
+                dynamic fbResult = client.Get("me", new { fields = "name,id,email" });
+                member.FbId = fbResult.id;
+            }
+
+            if(!string.IsNullOrEmpty(member.Password)) member.Password = WD.Common.Utility.SecurityUtility.AESEnCrypt(member.Password);
             ApiResult apiResult = new ApiResult();
             MemberDataModel result = this.MemberService.Login(member);
             if (result == null)
             {
-                apiResult.Message = "登入失敗";
+                apiResult.Message = string.IsNullOrEmpty(member.FbId) ? "登入失敗" : "請先註冊帳號唷";
                 apiResult.Status = Models.Enum.ApiStatus.CustomerError;
             }
             else
@@ -41,6 +50,14 @@ namespace WD.Controllers
         [Route("register")]
         [HttpPost()]
         public IHttpActionResult Register(MemberDataModel member) {
+            if(!string.IsNullOrEmpty(member.FbToken))
+            {
+                var client = new FacebookClient(member.FbToken);
+                dynamic fbResult = client.Get("me", new { fields = "name,id,email" });
+                member.FbId = fbResult.id;
+            }
+            
+
             member.Password = WD.Common.Utility.SecurityUtility.AESEnCrypt(member.Password);
             ApiResult apiResult = new ApiResult();
             bool isFinishRegister = this.MemberService.Register(member);

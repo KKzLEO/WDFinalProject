@@ -23,6 +23,10 @@ namespace WD.Dao.Member
 
         public MemberDataModel Login(MemberDataModel member)
         {
+            if (!string.IsNullOrEmpty(member.FbId))
+            {
+                return this.FbLogin(member);
+            }
             string sql = @"SELECT ACCOUNT as Account,
 	                               EMAIL as Email,
                                    usr.TITLE_CODE as TitleCode,
@@ -40,14 +44,14 @@ namespace WD.Dao.Member
             };
             using (var connection = new SqlConnection(this.GetDbConnectionString()))
             {
-
                 MemberDataModel result = connection.Query<MemberDataModel>(sql, parameters).FirstOrDefault();
                 return result;
             }
         }
 
         public bool Register(MemberDataModel member) {
-            string sql = @"EXEC sp_user_register @Account,@Password,@Email,@TitleCode,@UserId,@EName,@CName";
+            string sql = @"EXEC sp_user_register @Account,@Password,@Email,@TitleCode,@UserId,@EName,@CName,@FbId";
+
             object parameters = new
             {
                 Account = member.Account == null ? string.Empty : member.Account,
@@ -56,7 +60,8 @@ namespace WD.Dao.Member
                 TitleCode = member.TitleCode == null ? "1" : member.TitleCode,
                 UserId = member.EName == null ? string.Empty : member.EName.Replace(" ", "_"),
                 EName = member.EName == null ? string.Empty : member.EName,
-                CName = member.CName == null ? string.Empty : member.CName
+                CName = member.CName == null ? string.Empty : member.CName,
+                FbId = member.FbId == null ? string.Empty :member.FbId
             };
             using (var connection = new SqlConnection(this.GetDbConnectionString()))
             {
@@ -64,7 +69,28 @@ namespace WD.Dao.Member
                 if (result == "true") return true;
                 else return false;
             }
+        }
 
+        public MemberDataModel FbLogin(MemberDataModel member) {
+            string sql = @"SELECT ACCOUNT as Account,
+	                               EMAIL as Email,
+                                   usr.TITLE_CODE as TitleCode,
+								   titcode.TITLE_NAME as TitleName,
+	                               PER_SERIL_NO as PerSerilNo,
+                                   E_NAME as EName,
+                                   C_NAME as CName
+                            FROM USERS(NOLOCK) as usr JOIN TITLE_CODE as titcode
+							ON usr.TITLE_CODE = titcode.TITLE_CODE 
+                            WHERE FB_ID = @FbId";
+            object parameters = new
+            {
+                FbId = member.FbId == null ? string.Empty : member.FbId
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                MemberDataModel result = connection.Query<MemberDataModel>(sql, parameters).FirstOrDefault();
+                return result;
+            }
         }
     }
 }

@@ -14,6 +14,8 @@ import { UserService } from 'src/app/service/user.service';
 import { CourseService } from 'src/app/service/course.service';
 import { ShoppingService } from 'src/app/service/shopping.service';
 import { CustomerFooterComponent } from 'src/app/widget/customer-footer/customer-footer.component'
+import { FacebookService } from 'ngx-facebook';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { CustomerFooterComponent } from 'src/app/widget/customer-footer/customer
     ApiUrlConfigService,
     UserService,
     CourseService,
-    ShoppingService
+    ShoppingService,
+    FacebookService
   ],
   bootstrap: [AppComponent]
 })

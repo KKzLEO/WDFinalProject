@@ -80,7 +80,7 @@
     <h1 class="uk-text-center course-list-title"><span class="img-course-list"><img src="../../assets/images/img_course_list.png" alt=""></span> 課程清單</h1>
     <div class="uk-container align-center course-card-group">
         <div class="uk-child-width-1-2-@s uk-child-width-1-5@m uk-grid-small" uk-grid>
-            <div *ngFor="let course of courseList">
+            <div *ngFor="let course of courseList;let i = index" class="uk-inline">
                 <div class="uk-card uk-card-default uk-card-hover">
                     <div class="uk-card-media-top">
                         <img class="img-course" src="{{ course.courseImageUrl }}" alt="">
@@ -99,25 +99,14 @@
                         <h4 class="uk-text-right course-card-price">${{ course.price }}</h4>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-media-top">
-                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
-                    </div>
-                    <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">Angular 實戰演練</h3>
-                        <h4 class="course-card-author">leo lee</h4>
-                        <div class="course-card-score">
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span class="course-card-score-text">　5(264)</span>
-                        </div>
-                        <h4 class="uk-text-right course-card-price">$779</h4>
-                    </div>
+                <div uk-dropdown="pos: right-center" class="course-card-hover">
+                    <h3 class="last-update-time">上次更新時間：{{ course.modDate }}</h3>
+                    <h1 class="course-card-hover-title">{{ course.courseName }}</h1>
+                    <span class="course-card-hover-teacher"><i class="material-icons">face</i> {{ course.teacherEName }} 授課</span>
+                    <span class="course-card-hover-ttlhr"><i class="material-icons">timelapse</i> 共 {{ course.ttlHr }} 小時</span>
+                    <h2 class="course-card-hover-desc">{{ course.description }}</h2>
+                    <button (click)="addCourseToShoppingCart(i)" class="btn-add-course-to-shopping-cart uk-button uk-width-1-1 uk-margin-small-bottom">加入購物車</button>
+                   
                 </div>
             </div>
             <div>
@@ -161,6 +150,26 @@
                 </div>
             </div>
             <div>
+                <div class="uk-card uk-card-default uk-card-hover">
+                    <div class="uk-card-media-top">
+                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
+                    </div>
+                    <div class="uk-card-body course-card-body">
+                        <h3 class="uk-card-title course-card-title">Angular 實戰演練</h3>
+                        <h4 class="course-card-author">leo lee</h4>
+                        <div class="course-card-score">
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span class="course-card-score-text">　5(264)</span>
+                        </div>
+                        <h4 class="uk-text-right course-card-price">$779</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-inline">
                 <div class="uk-card uk-card-default uk-card-hover">
                     <div class="uk-card-media-top">
                         <img class="img-course" src="../../assets/images/img_angular.png" alt="">
@@ -178,6 +187,10 @@
                         </div>
                         <h4 class="uk-text-right course-card-price">$779</h4>
                     </div>
+                </div>
+                <div uk-dropdown="pos: right-center" class="course-card-hover">
+                    <h3 class="last-update-time">上次更新時間：2018/06/27</h3>
+                    <h1 class="course-card-hover-title">angular 實戰演練</h1>
                 </div>
             </div>
         </div>

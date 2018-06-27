@@ -1,5 +1,39 @@
 <div class="shopping-cart-header">
     <h1 class="shopping-cart-header-title uk-text-left uk-container align-center">
-        購物車
+        <i class="material-icons text-white">shopping_basket</i> Cart / 購物車
     </h1>
+</div>
+
+<div class="shopping-cart-content">
+    <div class="uk-container align-center">
+        <div uk-grid>
+            <div class="uk-width-3-4" uk-grid>
+                <h3 class="shopping-cart-title">您的購物車裡有 {{ courseList.length }} 個課程</h3>
+                <div class="uk-width-1-1 course-item" *ngFor="let courseItem of courseList;let i=index">
+                    <div class="shopping-cart-card uk-card uk-card-default">
+                        <img class="shopping-cart-course-image" src="{{ courseItem.courseImageUrl }}" alt="">
+                        <div class="uk-card-body shopping-cart-card-content uk-width-3-5">
+                            <h4 class="shopping-card-title">{{ courseItem.courseName }}</h4>
+                            <h5 class="shopping-card-author">{{ courseItem.teacherCName }}</h5>
+                        </div>
+                        <div class="shopping-card-right uk-width-1-5">
+                            <div class="shopping-card-price uk-text-center">
+                                ${{ courseItem.price }}　
+                            </div>
+                        </div>
+                        <div class="btn-shopping-card-cancel" (click)="removeShoppingCartItem(i)">
+                            <i class="material-icons">close</i>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="uk-width-1-4">
+                <h3 class="shopping-card-total-text">總計</h3>
+                <h2 class="shopping-card-total-price uk-margin-small">${{ totalPrice }}</h2>
+                <button class="shopping-card-go-pay uk-button uk-width-1-1 uk-margin-small-bottom">結帳去</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -14,4 +14,9 @@ export class CourseDataModel{
     teacherEmail : string;
     teacherEName : string;
     teacherCName : string;
+    modDate:string;
+    modUsr:string;
+    creDate:string;
+    creUsr:string;
+    ttlHr:number;
 }

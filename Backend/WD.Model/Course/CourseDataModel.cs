@@ -22,6 +22,11 @@ namespace WD.Model.Course
         public string TeacherEmail { get; set; }
         public string TeacherEName { get; set; }
         public string TeacherCName { get; set; }
+        public string ModDate { get; set; }
+        public string ModUsr { get; set; }
+        public string CreDate { get; set; }
+        public string CreUsr { get; set; }
+        public int TtlHr { get; set; }
 
     }
 }

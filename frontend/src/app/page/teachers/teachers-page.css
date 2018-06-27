@@ -1,0 +1,36 @@
+body{
+    font-family: Microsoft JhengHei;
+}
+.color-white{
+    color:white;
+}
+.hrStyle::after{
+    content: " ";
+    width: 50px;
+    height: 2px;
+    display: block;
+    border-top: 2px solid #007791;
+    margin: 21px auto 50px;
+}
+.explore span img{
+    width:45px;
+    height: 45px;
+}
+.operation a img{
+    width:55px;
+    height:55px;
+}
+/* .operation span img:hover{ */
+    /* background-color: rgba(41,48,59,.2); */
+/* } */
+
+.top-header{
+    border-radius: 4px 4px 0 0;
+    height: 8px;
+}
+
+.teacher{
+    border-radius: 50%;
+    height: 90px;
+    width: 90px;
+}
