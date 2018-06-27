@@ -62,7 +62,7 @@ h1,h2{
     height:60px;
 }
 .cart-button:hover{
-    background-color: #971C1D; 
+    background: #ec8d8d; 
     color:White;
 }
 .buy-intro-text{
@@ -107,6 +107,8 @@ h1,h2{
 .request-block{
     /* width:63%; */
     margin-top: 50px;
+
+    margin-bottom: 60px !important;
 }
 
 @media screen and (max-width:960px){
