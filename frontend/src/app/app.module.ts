@@ -12,9 +12,13 @@ import { ApiUrlConfigService } from 'src/app/config/api-url-config.service';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
 import { CourseService } from 'src/app/service/course.service';
+import { ShoppingService } from 'src/app/service/shopping.service';
+import { CustomerFooterComponent } from 'src/app/widget/customer-footer/customer-footer.component'
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CustomerFooterComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,8 @@ import { CourseService } from 'src/app/service/course.service';
     ProxyService,
     ApiUrlConfigService,
     UserService,
-    CourseService
+    CourseService,
+    ShoppingService
   ],
   bootstrap: [AppComponent]
 })

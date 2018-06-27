@@ -9,6 +9,8 @@ import { Headers } from '@angular/http';
 import { CourseFilterModel } from 'src/app/page/course/course-filter-model';
 import { CourseService } from 'src/app/service/course.service';
 import { Router } from '@angular/router';
+import { ShoppingService } from 'src/app/service/shopping.service';
+import { CourseDataModel } from 'src/app/page/course/course-data-model';
 
 @Component({
     selector: 'app-root',
@@ -23,8 +25,10 @@ export class AppComponent {
     public isAdmin : boolean = false;
     public userData:MemberDataModel;
     public courseFilterArg : CourseFilterModel = new CourseFilterModel();
+    public courseList : CourseDataModel[] = new Array<CourseDataModel>();
+    
     @ViewChild("accessComponent") accessComponent : AccessComponent;
-    constructor(private router:Router,private courseService:CourseService,private userService:UserService,private proxy:ProxyService,private config:ApiUrlConfigService){
+    constructor(private shoppingService:ShoppingService,private router:Router,private courseService:CourseService,private userService:UserService,private proxy:ProxyService,private config:ApiUrlConfigService){
       this.isLoggedin = this.userService.isLoggedin;
       this.isAdmin = this.userService.isAdmin;
       this.userService.addListener(this.userServiceReceiver.bind(this));
@@ -35,7 +39,9 @@ export class AppComponent {
       setTimeout(() => {
         if(this.router.url === '/shopping-cart') this.theme="white";
       }, 100);
-      
+      this.shoppingService.addListener(this.shoppingServiceReceiver.bind(this));
+      this.courseList = JSON.parse(localStorage.getItem("shopping-cart"));
+      if(this.courseList == null) this.courseList = new Array<CourseDataModel>();
     }
 
     ngAfterViewInit(){
@@ -107,4 +113,8 @@ export class AppComponent {
         return className + "-" + this.theme + "-theme";
     }
 
+    public shoppingServiceReceiver(){
+        this.courseList = JSON.parse(localStorage.getItem("shopping-cart"));
+        if(this.courseList == null) this.courseList = new Array<CourseDataModel>();
+    }
 }

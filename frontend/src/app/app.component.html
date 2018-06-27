@@ -11,7 +11,7 @@
             </div>
             <div class="uk-navbar-right" *ngIf="!isLoggedin">
                 <button type="button" class="uk-button uk-button-text" [ngClass]="themeClass('btn-go-teacher-page')">師資介紹</button>
-                <button type="button" (click)="goShoppingCartPage()" [ngClass]="themeClass('btn-go-shopping-cart')" class="uk-button uk-button-text">購物車<span class="shopping-cart-item-number">1</span></button>
+                <button type="button" (click)="goShoppingCartPage()" [ngClass]="themeClass('btn-go-shopping-cart')" class="uk-button uk-button-text">購物車<span class="shopping-cart-item-number" *ngIf="courseList.length != 0">{{ courseList.length }}</span></button>
                 <!-- <span class="btn-go-shopping-cart"><i class="material-icons">shopping_cart</i></span> -->
                 <button type="button" class="uk-button" [ngClass]="themeClass('btn-login')" (click)="openLoginWindow()">登入</button>
                 <button type="button" class="uk-button" [ngClass]="themeClass('btn-register')" (click)="openRegisterWindow()">註冊</button>
@@ -32,4 +32,6 @@
 <router-outlet></router-outlet>
 
 
-<footer></footer>
+<footer>
+    <customer-footer></customer-footer>
+</footer>
