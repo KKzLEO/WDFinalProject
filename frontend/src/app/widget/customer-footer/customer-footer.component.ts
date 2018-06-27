@@ -14,7 +14,8 @@ declare var UIkit : any;
 
 @Component({
     selector: "customer-footer",
-    templateUrl: "./customer-footer.component.html"
+    templateUrl: "./customer-footer.component.html",
+    styleUrls : ["./customer-footer.css"]
 })
 
 

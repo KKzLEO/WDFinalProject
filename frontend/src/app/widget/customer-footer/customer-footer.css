@@ -1,0 +1,22 @@
+.page-footer{
+    padding: 30px 0;
+    background-color: #F0F0F0;
+}
+.slogan-font{
+    text-align: center;
+    font-size: 16px;
+    color:#4C4C4C;
+    margin-bottom: 60px;
+
+}
+.title-font{
+    color:#4C4C4C;
+    font-size: 16px;
+    font-weight: 600;
+}
+.article-font{
+    font-size: 16px;
+    color:#4C4C4C;
+    margin-top:0px;
+    line-height: 30px;
+}
