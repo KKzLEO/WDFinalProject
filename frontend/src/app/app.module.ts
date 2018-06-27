@@ -12,6 +12,9 @@ import { ApiUrlConfigService } from 'src/app/config/api-url-config.service';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/app/service/user.service';
 import { CourseService } from 'src/app/service/course.service';
+import { FacebookService } from 'ngx-facebook';
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -30,7 +33,8 @@ import { CourseService } from 'src/app/service/course.service';
     ProxyService,
     ApiUrlConfigService,
     UserService,
-    CourseService
+    CourseService,
+    FacebookService
   ],
   bootstrap: [AppComponent]
 })
