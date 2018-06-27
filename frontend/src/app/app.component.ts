@@ -94,6 +94,11 @@ export class AppComponent {
         this.changeNavTheme("white");
     }
 
+    public goTeachersPagePage(){
+      this.router.navigateByUrl('teachers');
+      this.changeNavTheme("white");
+  }
+
     public goHomePage(){
         window.location.href = "./index";
     }
