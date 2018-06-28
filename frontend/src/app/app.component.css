@@ -1,0 +1,27 @@
+@media screen and (max-width:959px) {
+    /* .center-s{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 990;
+    } */
+    .center-s{
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width:534px) {
+    /* .center-s{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        z-index: 990;
+    } */
+    .search-bar-group{
+        width: 180px;
+    }
+}
+
+

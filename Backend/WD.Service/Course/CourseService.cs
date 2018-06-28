@@ -11,8 +11,14 @@ namespace WD.Service.Course
     public class CourseService
     {
         private CourseDao CourseDao = new CourseDao();
-        public List<CourseDataModel> SearchCourse(CourseFilterModel arg) {
+        public List<CourseDataModel> SearchCourse(CourseFilterModel arg)
+        {
             return this.CourseDao.SearchCourse(arg);
+        }
+
+        public bool DeleteCourse(string courseSerilNo)
+        {
+            return this.CourseDao.DeleteCourse(courseSerilNo);
         }
     }
 }

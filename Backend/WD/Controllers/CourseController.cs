@@ -26,6 +26,17 @@ namespace WD.Controllers
             return Ok(apiResult);
         }
 
+        [Route("delete")]
+        [HttpPost()]
+        public IHttpActionResult DeleteCourse(string courseSerilNo)
+        {
+            ApiResult apiResult = new ApiResult();
+            apiResult.Data = this.CourseService.DeleteCourse(courseSerilNo);
+            apiResult.Status = Models.Enum.ApiStatus.Success;
+            apiResult.Message = "刪除成功";
+            return Ok(apiResult);
+        }
+
         [HttpGet()]
         [Route("image/{courseEName}")]
         public HttpResponseMessage GetCourseImage(string courseEName)
@@ -42,6 +53,7 @@ namespace WD.Controllers
             }
             catch (Exception ex)
             {
+                path = WD.Common.Utility.ConfigUtility.GetAppSetting("CourseImagePath") + "default" + ".jpg";
                 FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read);
                 response.Content = new StreamContent(file);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");

@@ -1,0 +1,32 @@
+<div class="shopping-cart-header">
+    <h1 class="shopping-cart-header-title uk-text-left uk-container align-center">
+        <i class="material-icons text-white">settings</i> Setting / 課程管理
+    </h1>
+</div>
+
+<div class="uk-container align-center maintain-content">
+    <table class="uk-table uk-table-middle uk-table-divider uk-table-hover">
+        <thead>
+            <tr>
+                <th class="uk-width-small">課程種類</th>
+                <th>課程名稱</th>
+                <th>價錢</th>
+                <th>講師</th>
+                <th>課程時數</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of courseList">
+                <td>{{ item.categoryName }}</td>
+                <td>{{ item.courseName }}</td>
+                <td>${{ item.price}}</td>
+                <td>{{ item.teacherEName }} - {{ item.teacherCName }}</td>
+                <td>{{ item.ttlHr }}</td>
+                <td><button class="uk-button uk-button-default" type="button">修改</button></td>
+                <td><button class="uk-button btn-maintain-delete text-white" type="button">刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

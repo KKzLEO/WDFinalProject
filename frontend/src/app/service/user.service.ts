@@ -4,6 +4,7 @@ import { MemberDataModel } from '../widget/access/member-data-model';
 import { ProxyService } from "src/app/proxy/proxy.service";
 import { ApiUrlConfigService } from "src/app/config/api-url-config.service";
 import swal from 'sweetalert';
+import { FacebookService } from "ngx-facebook";
 @Injectable()
 export class UserService {
 
@@ -11,7 +12,7 @@ export class UserService {
     public isAdmin = false;
     public listeners = [];
 
-    constructor(private proxy:ProxyService,private config:ApiUrlConfigService){
+    constructor(private fb:FacebookService,private proxy:ProxyService,private config:ApiUrlConfigService){
         this.isLoggedin = localStorage.getItem("user") == null ? false : true;
         this.isAdmin = localStorage.getItem("user") == null ? false : (JSON.parse(localStorage.getItem("user")).titleCode == '0' ? true : false);
     }
@@ -69,6 +70,7 @@ export class UserService {
                     swal(r.message);
                     localStorage.removeItem('user');
                     this.isLoggedin = false;
+                    this.logoutWithFacebook();
                     this.notify(false);
                 }
             },
@@ -94,6 +96,10 @@ export class UserService {
             }
 
         )
+    }
+
+    public logoutWithFacebook(): void {
+        this.fb.logout().then(() => console.log('Logged out!'));
     }
   
 }

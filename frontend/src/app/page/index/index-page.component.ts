@@ -7,11 +7,14 @@ import { ApiUrlConfigService } from "src/app/config/api-url-config.service";
 import { CourseDataModel } from "src/app/page/course/course-data-model";
 import { CourseService } from "src/app/service/course.service";
 import { ShoppingService } from "src/app/service/shopping.service";
+import { Router } from "@angular/router";
+import { NavigationEnd } from "@angular/router";
 
 
 @Component({
     selector: "index-page",
-    templateUrl: "./index-page.component.html"
+    templateUrl: "./index-page.component.html",
+    styleUrls: ["./index-page.css"]
 })
 
 
@@ -19,14 +22,19 @@ export class IndexPageComponent{
 
     public courseFilterArg : CourseFilterModel;
     public courseList : CourseDataModel[] = new Array<CourseDataModel>();
-    constructor(private shoppingService:ShoppingService,private courseService:CourseService,private proxy:ProxyService,private configService:ApiUrlConfigService){
+    constructor(private router:Router,private shoppingService:ShoppingService,private courseService:CourseService,private proxy:ProxyService,private configService:ApiUrlConfigService){
         this.courseService.addListener(this.courseServiceReceiver.bind(this));
     }
 
     @ViewChild("accessComponent") accessComponent : AccessComponent;
 
     ngOnInit(){
-        
+        this.router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) {
+                return;
+            }
+            window.scrollTo(0, 0)
+        });
     }
     
     public register(){
@@ -68,5 +76,14 @@ export class IndexPageComponent{
         this.shoppingService.notify();
     }
 
+    public goCourseDetailPage(index:number){
+        localStorage.setItem("course-detail",JSON.stringify(this.courseList[index]));
+        this.router.navigateByUrl("course-detail");
+    }
+
+    public watchAllCourse(){
+        var courseView = document.getElementById("CourseList");
+        if(courseView != null) courseView.scrollIntoView();
+    }
 
 }

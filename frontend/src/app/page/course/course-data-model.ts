@@ -19,4 +19,8 @@ export class CourseDataModel{
     creDate:string;
     creUsr:string;
     ttlHr:number;
+    learningText:string;
+    requirementText:string;
+    insText:string;
+    targetText:string;
 }

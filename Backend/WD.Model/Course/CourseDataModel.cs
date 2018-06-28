@@ -27,6 +27,9 @@ namespace WD.Model.Course
         public string CreDate { get; set; }
         public string CreUsr { get; set; }
         public int TtlHr { get; set; }
-
+        public string LearningText { get; set; }
+        public string RequirementText { get; set; }
+        public string InsText { get; set; }
+        public string TargetText { get; set; }
     }
 }

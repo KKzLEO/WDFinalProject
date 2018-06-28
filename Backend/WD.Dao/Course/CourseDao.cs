@@ -40,6 +40,10 @@ namespace WD.Dao.Course
                                   ,A.MOD_DATE AS ModDate
                                   ,A.MOD_USR AS ModUsr
                                   ,A.TTL_HR AS TtlHr
+                                  ,A.LEARNING_TEXT AS LearningText
+                                  ,A.REQUIREMENT_TEXT AS RequirementText
+                                  ,A.INS_TEXT AS InsText
+                                  ,A.TARGET_TEXT AS TargetText
                             FROM COURSE AS A JOIN TEACHERS AS B ON A.COURSE_SERIL_NO = B.COURSE_SERIL_NO
                             JOIN USERS AS C ON B.PER_SERIL_NO = C.PER_SERIL_NO
                             JOIN COURSE_CATEGORY_CODE AS D ON A.CATEGORY_CODE = D.CATEGORY_CODE
@@ -60,9 +64,27 @@ namespace WD.Dao.Course
             };
             using (var connection = new SqlConnection(this.GetDbConnectionString()))
             {
-
                 List<CourseDataModel> result = connection.Query<CourseDataModel>(sql, parameters).ToList();
+                foreach (CourseDataModel course in result) {
+                    if (!string.IsNullOrEmpty(course.TargetText)) course.TargetText = course.TargetText.Replace(";", "<br />");
+                    if (!string.IsNullOrEmpty(course.RequirementText)) course.RequirementText = course.RequirementText.Replace(";", "<br />");
+                    //if (!string.IsNullOrEmpty(course.LearningText)) course.LearningText = course.LearningText.Replace(";", "<br />");
+                    if (!string.IsNullOrEmpty(course.InsText)) course.InsText = course.InsText.Replace(";", "<br />");
+                }
                 return result;
+            }
+        }
+
+        public bool DeleteCourse(string courseSerilNo) {
+            string sql = @"Delete COURSE WHERE COURSE_SERIL_NO = @CourseSerilNo";
+            object parameters = new
+            {
+                CourseSerilNo = courseSerilNo
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                string result = connection.ExecuteScalar(sql, parameters).ToString();
+                return true;
             }
         }
     }

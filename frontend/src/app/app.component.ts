@@ -42,6 +42,8 @@ export class AppComponent {
       this.shoppingService.addListener(this.shoppingServiceReceiver.bind(this));
       this.courseList = JSON.parse(localStorage.getItem("shopping-cart"));
       if(this.courseList == null) this.courseList = new Array<CourseDataModel>();
+      this.userData = JSON.parse(localStorage.getItem("user"));
+      if(this.userData == null) this.userData = new MemberDataModel();
     }
 
     ngAfterViewInit(){
@@ -59,6 +61,8 @@ export class AppComponent {
     public userServiceReceiver(message){
       this.isLoggedin = this.userService.isLoggedin;
       this.isAdmin = this.userService.isAdmin;
+      this.userData = JSON.parse(localStorage.getItem("user"));
+      if(this.userData == null) this.userData = new MemberDataModel();
     }
 
     public logout(){
@@ -95,6 +99,18 @@ export class AppComponent {
         this.courseService.searchCourse(this.courseFilterArg);
     }
 
+    public searchCourseAndGoto(){
+      if(this.router.url !== './index'){
+        this.router.navigateByUrl('index');
+      }
+      setTimeout(() => {
+        var courseView = document.getElementById("CourseList");
+        if(courseView != null) courseView.scrollIntoView();
+        this.searchCourse();
+      }, 10);
+      
+    }
+
     public goShoppingCartPage(){
         this.router.navigateByUrl('shopping-cart');
         this.changeNavTheme("white");
@@ -107,6 +123,10 @@ export class AppComponent {
 
     public goHomePage(){
         window.location.href = "./index";
+    }
+
+    public goMaintainPage(){
+      this.router.navigateByUrl('maintain');
     }
 
     public changeNavTheme(theme){

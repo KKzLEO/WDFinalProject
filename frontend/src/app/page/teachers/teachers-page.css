@@ -1,6 +1,11 @@
 body{
-    font-family: Microsoft JhengHei;
+    font-family: 'Noto Sans TC' !important;
 }
+
+h1,h2,h3,h4{
+    font-family: 'Noto Sans TC' !important;
+}
+
 .color-white{
     color:white;
 }

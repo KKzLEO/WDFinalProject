@@ -3,14 +3,21 @@
         <div uk-grid>
             <div class="uk-width-2-3@l uk-width-2-3@m uk-width-3-3@s header-grid">
                 <h1 class="course-name">
-                    第一次開發Bootstrap 4就上手！
+                    {{ courseData.courseName }}
                 </h1>
                 <h2 class="course-intro">
-                    最完整的11.5個小時課程，全面解析Boostrap4原理
+                    {{ courseData.description }}
                 </h2>
                 <div>
                     <span class="course-intro2">
-                        口口口口口 4.5（21次評等）
+                        <span class="course-card-score">
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span><i class="material-icons">star</i></span>
+                            <span class="course-card-score-text">　5(264)</span>
+                        </span>
                     </span>
                     <span class="course-intro2">
                         334 名學生註冊
@@ -18,10 +25,10 @@
                 </div>
                 <div>
                     <span class="course-intro2">
-                        建立者：朝輝 蘇
+                        建立者：{{ courseData.creUsr }}
                     </span>
                     <span class="course-intro2">
-                        上次更新 6/2018
+                        上次更新 {{ courseData.modDate }}
                     </span>
                     <span class="course-intro2">
                         tradional Chinese
@@ -31,8 +38,8 @@
             <div class="uk-width-1-1 uk-hidden@m">
                     <div class="uk-card uk-card-default course-card">
                         <div class="uk-card-body cart-body">
-                            <h1 class="price-text">$330</h1>
-                            <h1 class="buy-intro-text">13 小時 的隨選影片<br>5 篇文章<br>44 個補充資源<br>完整終身存取權<br>透過行動裝置與電視存取<br>結業證書</h1>
+                            <h1 class="price-text">${{ courseData.price }}</h1>
+                            <h1 class="buy-intro-text">{{ courseData.ttlHr }} 小時 的隨選影片<br>5 篇文章<br>44 個補充資源<br>完整終身存取權<br>透過行動裝置與電視存取<br>結業證書</h1>
                         </div>
                         <div class="uk-card-footer">
                             <button class="uk-button uk-button-default cart-button">新增至購物車</button>
@@ -48,30 +55,21 @@
             <div class="learn-block">
                 <h1 class="title-text">我會學些什麼呢？</h1>
                 <div uk-grid>
-                    <div class="uk-width-1-2@l  uk-width-1-1@s article">
+                    <div class="uk-width-1-2@l  uk-width-1-1@s article" *ngFor="let text of learningText">
                         <!-- <img src="./images/checked.svg" width="15" height="15" uk-svg> -->
                         <i class="material-icons">check</i>
-                        <span class="article-text"> 快速建置RWD響應式網站</span>
-                    </div>
-                    <div class="uk-width-1-2@l uk-width-1-1@s article">
-                        <!-- <img src="./images/checked.svg" width="15" height="15" uk-svg> -->
-                        <i class="material-icons">check</i>
-                        <span class="article-text"> BS3 跳級至 BS4 並熟悉各項應用技巧</span>
-                    </div>
-                    <div class="uk-width-1-2@l uk-width-1-1@s article">
-                        <!-- <img src="./images/checked.svg" width="15" height="15" uk-svg> -->
-                        <i class="material-icons">check</i>
-                        <span class="article-text"> 各種版型難不倒你，BS4讓你隨切隨用</span>
+                        <span class="article-text"> {{ text }}</span>
                     </div>
                 </div>
             </div>
             <div class="request-block">
                 <h1 class="title-text">要求</h1>
-                <h1 class="article article-text">具有基礎網頁技能(HTML/CSS)的知識</h1>
+                <h1 class="article article-text" [innerHTML]="courseData.requirementText"></h1>
             </div>
             <div class="request-block">
                 <h1 class="title-text">說明</h1>
-                <h1 class="article article-text">★ 一步步帶你實作，並同時理解BS4的基本原理，讓你在工作上運用自如！<br>
+                <h1 class="article article-text" [innerHTML]="courseData.insText">
+                    <!-- ★ 一步步帶你實作，並同時理解BS4的基本原理，讓你在工作上運用自如！<br>
                     ★ 不管你是從頭學或是學過BS3，保證讓你無縫接軌，輕鬆應對！<br>
                     ★ 額外加碼彩蛋功能，讓你實作案例功能更完整！<br>
                     ★ 在職的前端工程師將業界的經驗引入課程教學，絕對是最強實作！<br>
@@ -87,15 +85,16 @@
                     前端工程師<br>
                     視覺設計師<br>
                     想學習 RWD 響應式網站的人<br>
-                    後端工程師
+                    後端工程師 -->
                 </h1>
                 <h1 class="title-text">適用對象</h1>
-                <h1 class="article article-text">網頁設計師<br>
+                <h1 class="article article-text" [innerHTML]="courseData.targetText">
+                    <!-- 網頁設計師<br>
                     前端工程師<br>
                     視覺設計師<br>
                     想瞭解 RWD 響應式網站的人<br>
                     須要生出畫面的後端工程師<br>
-                    具有基礎網頁技能(HTML/CSS)的人
+                    具有基礎網頁技能(HTML/CSS)的人 -->
                 </h1>
             </div>
         </div>
@@ -106,7 +105,7 @@
                     <h1 class="buy-intro-text">13 小時 的隨選影片<br>5 篇文章<br>44 個補充資源<br>完整終身存取權<br>透過行動裝置與電視存取<br>結業證書</h1>
                 </div>
                 <div class="uk-card-footer">
-                    <button class="uk-button uk-button-default cart-button">新增至購物車</button>
+                    <button class="uk-button uk-button-default cart-button" (click)="addToShoppingCart()">新增至購物車</button>
                 </div>
             </div>
         </div>

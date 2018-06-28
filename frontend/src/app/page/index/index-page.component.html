@@ -1,14 +1,14 @@
 
 <div class="banner">
     <h1 class="uk-text-center banner-title" >E-LEARNING</h1>
-    <h1 class="uk-text-center banner-subtitle">讓你學習更EASY</h1>
-    <button class="uk-button btn-start">查看全部課程</button>
+    <h1 class="uk-text-center banner-subtitle uk-visible@s">讓你學習更EASY</h1>
+    <button class="uk-button btn-start uk-visible@m" (click)="watchAllCourse()">查看全部課程</button>
 </div>
 
 <div class="intro-1">
     <h1 class="uk-text-center intro-1-title">想學習新技術卻力不從心？</h1>
     <div class="uk-container uk-container-small align-center">
-        <div class="uk-child-width-1-@s uk-child-width-1-4@m uk-grid-small" uk-grid>
+        <div class="uk-child-width-1-2@s uk-child-width-1-4@m uk-grid-small" uk-grid>
             <div class="uk-text-center">
                 <img class="intro-1-img" src="../../assets/images/intro_1_1.png" alt="">
                 <p class="intro-1-desc">想學的課程</p>
@@ -37,21 +37,23 @@
     <h1 class="uk-text-center intro-2-title">別怕！我們幫你準備好了</h1>
     <div class="uk-container uk-container-small align-center">
         <div uk-grid>
-            <div class="uk-width-1-3@m uk-text-center">
+            <div class="uk-width-1-3@m uk-width-1-1@s uk-text-center">
                 <img class="intro-2-img" src="../../assets/images/intro_2_1.png" alt="">
             </div>
-            <div class="uk-width-2-3@m intro-2-content">
+            <div class="uk-width-2-3@m uk-width-1-1@s intro-2-content">
                 <h1 class="intro-2-content-title">完全的線上課程</h1>
                 <p class="intro-2-desc">透過影音課程學員們可以了解課程的核心概念以及方向，此外，我們後續還提供了作業檢討、線上問答、線上面對面交流，確保學員們的學習狀況。</p>
             </div>
         </div>
         <div uk-grid>
-            
+            <div class="uk-width-1-3@m uk-text-center uk-hidden@m">
+                <img class="intro-2-img" src="../../assets/images/intro_2_2.png" alt="">
+            </div>
             <div class="uk-width-2-3@m intro-2-content">
                 <h1 class="intro-2-content-title">作業批改</h1>
                 <p class="intro-2-desc">作業是測驗學習效果的良好途徑，除了每個章節後方會有簡單測驗外，在所有的課程結束後會提供一個測驗，讓學員可以自己練習是否瞭解全部課程內容，我們會仔細Review同學的學習狀況，並評量學員的學習狀況及給予修正的建議。</p>
             </div>
-            <div class="uk-width-1-3@m uk-text-center">
+            <div class="uk-width-1-3@m uk-text-center uk-visible@m">
                 <img class="intro-2-img" src="../../assets/images/intro_2_2.png" alt="">
             </div>
         </div>
@@ -70,23 +72,23 @@
 </div>
 
 <div class="intro-join-us">
-    <img class="img-join-us-left-quote" src="../../assets/images/img_left_quote.png" alt="">
-    <img class="img-join-us-right-quote" src="../../assets/images/img_right_quote.png" alt="">
+    <!-- <img class="img-join-us-left-quote" src="../../assets/images/img_left_quote.png" alt="">
+    <img class="img-join-us-right-quote" src="../../assets/images/img_right_quote.png" alt=""> -->
     <h1 class="uk-text-center intro-join-us-title">立即加入我們，讓我們一起學習吧！</h1>
     <button class="btn-join-us uk-button" (click)="register()">免費註冊會員</button>
 </div>
 
-<div class="course-list">
+<div class="course-list" id="CourseList">
     <h1 class="uk-text-center course-list-title"><span class="img-course-list"><img src="../../assets/images/img_course_list.png" alt=""></span> 課程清單</h1>
     <div class="uk-container align-center course-card-group">
-        <div class="uk-child-width-1-2-@s uk-child-width-1-5@m uk-grid-small" uk-grid>
-            <div *ngFor="let course of courseList;let i = index" class="uk-inline">
+        <div class="uk-child-width-1-3@s uk-child-width-1-5@m uk-grid-small" uk-grid>
+            <div *ngFor="let course of courseList;let i = index" class="uk-inline" >
                 <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-media-top">
+                    <div class="uk-card-media-top" (click)="goCourseDetailPage(i)" style="cursor:pointer">
                         <img class="img-course" src="{{ course.courseImageUrl }}" alt="">
                     </div>
                     <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">{{ course.courseName }}</h3>
+                        <h3 class="uk-card-title course-card-title">{{ (course.courseName.length>42)? (course.courseName | slice:0:42)+'..':(course.courseName)}}</h3>
                         <h4 class="course-card-author">{{ course.teacherEName }} {{ course.teacherCName }}</h4>
                         <div class="course-card-score">
                             <span><i class="material-icons">star</i></span>
@@ -107,90 +109,6 @@
                     <h2 class="course-card-hover-desc">{{ course.description }}</h2>
                     <button (click)="addCourseToShoppingCart(i)" class="btn-add-course-to-shopping-cart uk-button uk-width-1-1 uk-margin-small-bottom">加入購物車</button>
                    
-                </div>
-            </div>
-            <div>
-                <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-media-top">
-                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
-                    </div>
-                    <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">Angular 實戰演練</h3>
-                        <h4 class="course-card-author">leo lee</h4>
-                        <div class="course-card-score">
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span class="course-card-score-text">　5(264)</span>
-                        </div>
-                        <h4 class="uk-text-right course-card-price">$779</h4>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-media-top">
-                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
-                    </div>
-                    <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">Angular 實戰演練</h3>
-                        <h4 class="course-card-author">leo lee</h4>
-                        <div class="course-card-score">
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span class="course-card-score-text">　5(264)</span>
-                        </div>
-                        <h4 class="uk-text-right course-card-price">$779</h4>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-media-top">
-                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
-                    </div>
-                    <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">Angular 實戰演練</h3>
-                        <h4 class="course-card-author">leo lee</h4>
-                        <div class="course-card-score">
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span class="course-card-score-text">　5(264)</span>
-                        </div>
-                        <h4 class="uk-text-right course-card-price">$779</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="uk-inline">
-                <div class="uk-card uk-card-default uk-card-hover">
-                    <div class="uk-card-media-top">
-                        <img class="img-course" src="../../assets/images/img_angular.png" alt="">
-                    </div>
-                    <div class="uk-card-body course-card-body">
-                        <h3 class="uk-card-title course-card-title">angular 實戰演練</h3>
-                        <h4 class="course-card-author">leo lee</h4>
-                        <div class="course-card-score">
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span><i class="material-icons">star</i></span>
-                            <span class="course-card-score-text">　5(264)</span>
-                        </div>
-                        <h4 class="uk-text-right course-card-price">$779</h4>
-                    </div>
-                </div>
-                <div uk-dropdown="pos: right-center" class="course-card-hover">
-                    <h3 class="last-update-time">上次更新時間：2018/06/27</h3>
-                    <h1 class="course-card-hover-title">angular 實戰演練</h1>
                 </div>
             </div>
         </div>
