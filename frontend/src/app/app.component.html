@@ -3,7 +3,7 @@
     <nav [ngClass]="themeClass('navbar')">
         <div class="uk-container uk-navbar-container" [ngClass]="themeClass('navbar-container')" uk-navbar>
             <div class="uk-navbar-left center-s">
-                <img (click)="goHomePage()" class="navbar-brand" src="../assets/images/logo.png" alt="">
+                <img (click)="goHomePage()" class="navbar-brand" src="assets/images/logo.png" alt="">
                 <div class="search-bar-group">
                     <input placeholder="搜尋課程" [(ngModel)]="courseFilterArg.name" [ngClass]="themeClass('search-bar-input')" class="uk-input" type="text">
                     <span [ngClass]="themeClass('btn-search')" (click)="searchCourseAndGoto()"><i class="material-icons">search</i></span>

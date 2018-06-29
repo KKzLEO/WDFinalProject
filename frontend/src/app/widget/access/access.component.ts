@@ -35,7 +35,7 @@ export class AccessComponent {
 
     public loginData : MemberDataModel = new MemberDataModel();
     public registerData : MemberDataModel = new MemberDataModel();
-
+    public confirmPassword : string = "";
     ngOninit(){
         this.registerData.titleCode= "1";
     }
@@ -66,8 +66,13 @@ export class AccessComponent {
     }
 
     public register(){
-        this.userService.register(this.registerData);
-        this.clearRegisterData();
+        if(this.registerData.password != this.confirmPassword){
+            swal({title:"請確認密碼",icon:"warning"});
+        }else{
+            this.userService.register(this.registerData);
+            this.clearRegisterData();
+        }
+        
     }
 
     public clearLoginData(){
@@ -78,6 +83,7 @@ export class AccessComponent {
     public clearRegisterData(){
         this.registerData = new MemberDataModel();
         this.registerData.titleCode = "1";
+        this.confirmPassword = "";
     }
 
     public goLoginPage(){

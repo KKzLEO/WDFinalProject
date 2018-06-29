@@ -122,7 +122,7 @@ export class AppComponent {
   }
 
     public goHomePage(){
-        window.location.href = "./index";
+        window.location.href = "./#/index";
     }
 
     public goMaintainPage(){
