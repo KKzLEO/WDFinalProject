@@ -92,5 +92,20 @@ namespace WD.Dao.Member
                 return result;
             }
         }
+
+        public bool IsAdmin(MemberDataModel member)
+        {
+            string sql = @"SELECT * FROM USERS WHERE TITLE_CODE = '0' AND ACCOUNT=@Account";
+            object parameters = new
+            {
+                Account = member.Account
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                List<MemberDataModel> result = connection.Query<MemberDataModel>(sql, parameters).ToList();
+                if (result.Count == 0) return false;
+                else return true;
+            }
+        }
     }
 }

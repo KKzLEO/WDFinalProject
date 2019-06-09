@@ -153,6 +153,8 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CodeController.cs" />
+    <Compile Include="Controllers\CodeXController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +181,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\" />
+    <Folder Include="Views\CodeX\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WD.Common\WD.Common.csproj">

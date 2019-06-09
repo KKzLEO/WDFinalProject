@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\CodeService.cs" />
     <Compile Include="Course\CourseService.cs" />
     <Compile Include="Member\MemberService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,5 +92,6 @@
       <Name>WD.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,7 +14,9 @@ export class ProxyService extends ProxyCoreService {
     constructor(http: Http) {
         super(http);
         //預設header
-        this.proxyHeaders = new Headers({ 'Content-Type': "application/json" });
+        this.proxyHeaders = new Headers({ 'Content-Type': "application/json"
+    
+    });
     }
 
     /**
@@ -46,13 +48,20 @@ export class ProxyService extends ProxyCoreService {
         return new RequestOptions({ headers: this.proxyHeaders });
     }
 
-    public setProxyHeaders() {
-  
+    public setProxyHeaderNew(){
+        this.proxyHeaders = new Headers();
+    }
+
+    public setProxyHeadersMutiPart() {
+        this.proxyHeaders = new Headers({
+            'Content-Type': "multipart/form-data"
+        });
+    }
+
+    public setProxyHeaderJson(){
         this.proxyHeaders = new Headers({
             'Content-Type': "application/json"
         });
-
-
     }
 
 }

@@ -16,9 +16,19 @@ namespace WD.Service.Course
             return this.CourseDao.SearchCourse(arg);
         }
 
-        public bool DeleteCourse(string courseSerilNo)
+        public List<CourseDataModel> CreateCourse(CourseDataModel newCourse)
+        {
+            return this.CourseDao.CreateCourse(newCourse);
+        }
+
+        public List<CourseDataModel> DeleteCourse(string courseSerilNo)
         {
             return this.CourseDao.DeleteCourse(courseSerilNo);
+        }
+
+        public List<CourseDataModel> UpdateCourse(CourseDataModel course)
+        {
+            return this.CourseDao.UpdateCourse(course);
         }
     }
 }

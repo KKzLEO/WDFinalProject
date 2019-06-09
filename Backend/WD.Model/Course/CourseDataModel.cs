@@ -31,5 +31,6 @@ namespace WD.Model.Course
         public string RequirementText { get; set; }
         public string InsText { get; set; }
         public string TargetText { get; set; }
+        public string ShortIntroText { get; set; }
     }
 }

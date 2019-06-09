@@ -5,6 +5,7 @@
 </div>
 
 <div class="uk-container align-center maintain-content">
+    <button class="uk-button uk-button-default uk-align-right" type="button" (click)="openWindow('create')">新增課程</button>
     <table class="uk-table uk-table-middle uk-table-divider uk-table-hover">
         <thead>
             <tr>
@@ -18,15 +19,192 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of courseList">
+            <tr *ngFor="let item of courseList;let i =index">
                 <td>{{ item.categoryName }}</td>
                 <td>{{ item.courseName }}</td>
                 <td>${{ item.price}}</td>
                 <td>{{ item.teacherEName }} - {{ item.teacherCName }}</td>
                 <td>{{ item.ttlHr }}</td>
-                <td><button class="uk-button uk-button-default" type="button">修改</button></td>
-                <td><button class="uk-button btn-maintain-delete text-white" type="button">刪除</button></td>
+                <td><button (click)="openWindow('update',i)" class="uk-button uk-button-default" type="button">修改</button></td>
+                <td><button (click)="deleteCourse(item.courseSerilNo)" class="uk-button btn-maintain-delete text-white" type="button">刪除</button></td>
             </tr>
         </tbody>
     </table>
+</div>
+
+
+<div class="uk-flex-top" uk-modal #createCourseWindow> 
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <div class="login-heading">
+            <h1 *ngIf="op=='create'" class="register-title">創建一個新的課程</h1>
+            <h1 *ngIf="op=='update'" class="register-title">修改課程</h1>
+            <!-- <div class="login-avatar"></div> -->
+        </div>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <form class="uk-form-stacked" [formGroup]="newCourseForm">
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">課程名稱</label>
+                <div class="uk-form-controls">
+                    <input formControlName="courseName" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseName').touched) && newCourseForm.get('courseName').invalid,
+                                'uk-form-success': newCourseForm.get('courseName').touched && !newCourseForm.get('courseName').invalid}"
+                    [(ngModel)]="newCourseData.courseName" 
+                    name="courseName" 
+                    class="uk-input" 
+                    type="text" 
+                     >
+                    <div *ngIf="(isSubmit || newCourseForm.get('courseName').touched) && newCourseForm.get('courseName').invalid" class="invalid-message">課程名稱必填唷</div>
+                </div>
+                
+            </div>
+            
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">課程圖片</label>
+                <img *ngIf="src != null" src="{{ src }}" alt="" class="course-img-preview">
+                <div class="uk-form-controls">
+                    <div class="uk-placeholder uk-text-center">
+                        <span uk-icon="icon: cloud-upload"></span>
+                        <div uk-form-custom>
+                            <input name="courseImage"
+                            type="file" 
+                            multiple 
+                            (change)="showImage($event)">
+                            <span class="uk-link">選擇一張圖片</span>
+                        </div>
+                    </div>
+                    <div *ngIf="(isSubmit && src==null)" class="invalid-message">請選擇一張圖片上傳</div>
+                </div>
+            </div>
+            <progress class="uk-progress" value="0" max="100" hidden #uploadProgressBar></progress>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-select">課程類別</label>
+                <div class="uk-form-controls">
+                    <select name="category" 
+                    class="uk-select"
+                    formControlName="courseCategory" 
+                    [(ngModel)]="newCourseData.categoryCode"
+                    [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseCategory').touched) && newCourseForm.get('courseCategory').invalid,
+                                'uk-form-success': newCourseForm.get('courseCategory').touched && !newCourseForm.get('courseCategory').invalid}"  >
+                        <option *ngFor="let opt of courseCategoryList" [value]="opt.value">{{ opt.text }}</option>
+                    </select>
+                    <div *ngIf="(isSubmit || newCourseForm.get('courseCategory').touched) && newCourseForm.get('courseCategory').invalid" class="invalid-message">請選擇一個課程類別</div>
+                </div>
+            </div>
+        
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-select">課程講師</label>
+                <div class="uk-form-controls">
+                    <select class="uk-select" 
+                    [(ngModel)]="newCourseData.teacherPerSerilNo" 
+                    formControlName="courseTeacher" 
+                    name="teacher"
+                    [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseTeacher').touched) && newCourseForm.get('courseTeacher').invalid,
+                                'uk-form-success': newCourseForm.get('courseTeacher').touched && !newCourseForm.get('courseTeacher').invalid}"  >
+                        <option *ngFor="let teacher of teacherList" [value]="teacher.value">{{ teacher.text }}</option>
+                    </select>
+                    <div *ngIf="(isSubmit || newCourseForm.get('courseTeacher').touched) && newCourseForm.get('courseTeacher').invalid" class="invalid-message">課程講師必填唷</div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">課程價錢</label>
+                <div class="uk-form-controls">
+                    <input name="coursePrice" 
+                    class="uk-input" 
+                    type="number" 
+                    [(ngModel)]="newCourseData.price"
+                    formControlName="coursePrice"
+                    [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('coursePrice').touched) && newCourseForm.get('coursePrice').invalid,
+                                'uk-form-success': newCourseForm.get('coursePrice').touched && !newCourseForm.get('coursePrice').invalid}"   >
+                    <div *ngIf="(isSubmit || newCourseForm.get('coursePrice').touched) && newCourseForm.get('coursePrice').invalid" class="invalid-message">請填寫下課程價錢</div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">課程描述</label>
+                <textarea 
+                name="courseDesc" 
+                class="uk-textarea" 
+                rows="5" 
+                [(ngModel)]="newCourseData.description"
+                formControlName="courseDesc"
+                [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseDesc').touched) && newCourseForm.get('courseDesc').invalid,
+                            'uk-form-success': newCourseForm.get('courseDesc').touched && !newCourseForm.get('courseDesc').invalid}"   ></textarea>
+                <div *ngIf="(isSubmit || newCourseForm.get('courseDesc').touched) && newCourseForm.get('courseDesc').invalid" class="invalid-message">請填寫下課程描述</div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">學習目標</label>
+                <textarea 
+                name="courseLearningTarget" 
+                class="uk-textarea" 
+                rows="5"
+                [(ngModel)]="newCourseData.learningText"
+                formControlName="courseLearningTarget"
+                [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseLearningTarget').touched) && newCourseForm.get('courseLearningTarget').invalid,
+                            'uk-form-success': newCourseForm.get('courseLearningTarget').touched && !newCourseForm.get('courseLearningTarget').invalid}"   ></textarea>
+                <div *ngIf="(isSubmit || newCourseForm.get('courseLearningTarget').touched) && newCourseForm.get('courseLearningTarget').invalid" class="invalid-message">請填寫下學習目標</div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">需求</label>
+                <textarea 
+                name="courseRequirement" 
+                class="uk-textarea" 
+                rows="5" 
+                [(ngModel)]="newCourseData.requirementText"
+                formControlName="courseRequirement"
+                [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseRequirement').touched) && newCourseForm.get('courseRequirement').invalid,
+                            'uk-form-success': newCourseForm.get('courseRequirement').touched && !newCourseForm.get('courseRequirement').invalid}"   ></textarea>
+                <div *ngIf="(isSubmit || newCourseForm.get('courseRequirement').touched) && newCourseForm.get('courseRequirement').invalid" class="invalid-message">請填寫下需求</div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">說明</label>
+                <textarea 
+                name="courseIns" 
+                class="uk-textarea" 
+                rows="5"
+                [(ngModel)]="newCourseData.insText"
+                formControlName="courseIns"
+                [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseIns').touched) && newCourseForm.get('courseIns').invalid,
+                            'uk-form-success': newCourseForm.get('courseIns').touched && !newCourseForm.get('courseIns').invalid}"   ></textarea>
+                <div *ngIf="(isSubmit || newCourseForm.get('courseIns').touched) && newCourseForm.get('courseIns').invalid" class="invalid-message">請填寫下說明</div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">適用對象</label>
+                <textarea 
+                name="courseTarget" 
+                class="uk-textarea" 
+                rows="5" 
+                placeholder="" 
+                [(ngModel)]="newCourseData.targetText"
+                formControlName="courseTarget"
+                [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseTarget').touched) && newCourseForm.get('courseTarget').invalid,
+                            'uk-form-success': newCourseForm.get('courseTarget').touched && !newCourseForm.get('courseTarget').invalid}"   ></textarea>
+                <div *ngIf="(isSubmit || newCourseForm.get('courseTarget').touched) && newCourseForm.get('courseTarget').invalid" class="invalid-message">請填寫下適用對象</div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">簡單介紹</label>
+                <textarea 
+                name="courseShortIntro" 
+                class="uk-textarea" 
+                rows="5" 
+                placeholder="" 
+                [(ngModel)]="newCourseData.shortIntroText"
+                formControlName="courseShortIntro"  
+                [ngClass]="{'uk-form-danger':(isSubmit || newCourseForm.get('courseShortIntro').touched) && newCourseForm.get('courseShortIntro').invalid,
+                            'uk-form-success': newCourseForm.get('courseShortIntro').touched && !newCourseForm.get('courseShortIntro').invalid}" ></textarea>
+                <div *ngIf="(isSubmit || newCourseForm.get('courseShortIntro').touched) && newCourseForm.get('courseShortIntro').invalid" class="invalid-message">請填寫下簡單介紹</div>
+            </div>
+            <button *ngIf="op=='create'" (click)="createCourse()" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">新增課程</button>
+            <div *ngIf="op=='create'" class="uk-text-center">
+                <a class="right-now-register-text uk-text-center" (click)="clearCourseFormData()">清除</a>
+            </div>
+            <button *ngIf="op=='update'" (click)="updateCourse()" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">修改課程</button>
+        </form>
+    </div>
 </div>

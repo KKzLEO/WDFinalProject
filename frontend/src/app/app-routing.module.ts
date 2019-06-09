@@ -5,6 +5,7 @@ import { TeachersPageComponent } from 'src/app/page/teachers/teachers-page.compo
 import { ShoppingCartPageComponent } from 'src/app/page/shopping-cart/shopping-cart-page.component';
 import { CoursePageComponent } from 'src/app/page/course/course-page.component';
 import { MaintainPageComponent } from 'src/app/page/maintain/maintain-page.component';
+import { AuthGuardService } from 'src/app/service/authguard.service';
 
 // import { DashboardContainerComponent } from './dashboard/dashboard-container.component';
 // import { AppSpaComponent } from './app-spa.component';
@@ -34,7 +35,8 @@ const routes: Routes = [
     { path: 'teachers', pathMatch: 'full', component: TeachersPageComponent },
     { path: 'shopping-cart', pathMatch: 'full', component: ShoppingCartPageComponent },
     { path: 'course-detail', pathMatch: 'full', component: CoursePageComponent },
-    { path: 'maintain', pathMatch: 'full', component: MaintainPageComponent },
+    // { path: 'maintain', pathMatch: 'full', component: MaintainPageComponent},
+    { path: 'maintain', pathMatch: 'full', component: MaintainPageComponent,canActivate: [AuthGuardService] },
     // { path: 'loginfail', pathMatch: 'full', component: LoginfailPageComponent },
     // { path: 'about', pathMatch: 'full', component: AboutPageComponent },
     // { path: 'error', pathMatch: 'full', component: ErrorPageComponent },

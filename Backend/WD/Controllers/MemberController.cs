@@ -16,6 +16,7 @@ using WD.Service.Member;
 namespace WD.Controllers
 {
     [RoutePrefix("access")]
+    //[EnableCors("http://localhost:4200", "*", "*", SupportsCredentials = true)]
     public class MemberController : ApiController
     {
         private MemberService MemberService = new MemberService();
@@ -41,6 +42,7 @@ namespace WD.Controllers
             else
             {
                 this.CreateCookie(result);
+                
                 apiResult.Data = result;
                 apiResult.Message = "登入成功";
             }
@@ -89,7 +91,29 @@ namespace WD.Controllers
         [Authorize()]
         [HttpPost]
         public IHttpActionResult TestAuth() {
-            return Ok();
+            ApiResult apiResult = new ApiResult();
+            apiResult.Data = this.GetUser();
+            return Ok(apiResult);
+        }
+
+
+        [Route("validatetoken")]
+        [Authorize()]
+        [HttpPost]
+        public IHttpActionResult ValidateToken() {
+            MemberDataModel member = this.GetUser();
+            ApiResult apiResult = new ApiResult();
+            if (member!=null && MemberService.IsAdmin(member))
+            {
+                apiResult.Status = Models.Enum.ApiStatus.Success;
+                apiResult.Message = "驗證成功";
+            }
+            else
+            {
+                apiResult.Status = Models.Enum.ApiStatus.Fail;
+                apiResult.Message = "不要亂改";
+            }
+            return Ok(apiResult);
         }
 
         private void CreateCookie(MemberDataModel member) {
@@ -109,11 +133,29 @@ namespace WD.Controllers
 
             //將票證寫入 Cookie
             cookies.Add(new HttpCookie(FormsAuthentication.FormsCookieName, encryptTicket));
+            
         }
 
         private void ClearCookie() {
             //移除瀏覽器的表單驗證票證
             FormsAuthentication.SignOut();
+        }
+
+        private MemberDataModel GetUser() {
+            var user = HttpContext.Current.User;
+            var cookies = Request.Headers.GetCookies();
+            if (user?.Identity?.IsAuthenticated == true)
+            {
+                //取得 FormsIdentity
+                var identity = (FormsIdentity)user.Identity;
+
+                //取得 FormsAuthenticationTicket
+                var ticket = identity.Ticket;
+
+                //將 Ticket 內的 UserData 解析回 User 物件
+                return JsonConvert.DeserializeObject<MemberDataModel>(ticket.UserData);
+            }
+            return null;
         }
     }
 }

@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\CodeDao.cs" />
     <Compile Include="Course\CourseDao.cs" />
     <Compile Include="Member\MemberDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -16,26 +16,26 @@ namespace WD
         {
             HttpConfiguration config = new HttpConfiguration();
 
-            ConfigureOAuth(app);
+            //ConfigureOAuth(app);
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
 
         }
 
-        public void ConfigureOAuth(IAppBuilder app)
-        {
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
-            {
-                AllowInsecureHttp = true,
-                TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(7),
-                Provider = new WD.Providers.SimpleAuthorizationServerProvider(),
-            };
+        //public void ConfigureOAuth(IAppBuilder app)
+        //{
+        //    OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+        //    {
+        //        AllowInsecureHttp = true,
+        //        TokenEndpointPath = new PathString("/token"),
+        //        AccessTokenExpireTimeSpan = TimeSpan.FromDays(7),
+        //        Provider = new WD.Providers.SimpleAuthorizationServerProvider(),
+        //    };
 
-            // Token Generation
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-        }
+        //    // Token Generation
+        //    app.UseOAuthAuthorizationServer(OAuthServerOptions);
+        //    app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+        //}
     }
 }

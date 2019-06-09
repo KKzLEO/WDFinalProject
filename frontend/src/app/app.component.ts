@@ -36,9 +36,9 @@ export class AppComponent {
 
     ngOnInit(){
       this.searchCourse();
-      setTimeout(() => {
-        if(this.router.url === '/shopping-cart') this.theme="white";
-      }, 100);
+      // setTimeout(() => {
+      //   if(this.router.url === '/shopping-cart') this.theme="white";
+      // }, 100);
       this.shoppingService.addListener(this.shoppingServiceReceiver.bind(this));
       this.courseList = JSON.parse(localStorage.getItem("shopping-cart"));
       if(this.courseList == null) this.courseList = new Array<CourseDataModel>();
@@ -47,7 +47,7 @@ export class AppComponent {
     }
 
     ngAfterViewInit(){
-
+      // this.searchCourse();
     }
     
     public openLoginWindow(){
@@ -74,6 +74,8 @@ export class AppComponent {
       .then((willDelete) => {
         if (willDelete) {
           this.userService.logout();
+          this.router.navigateByUrl('index');
+          this.searchCourse();
         } else {
         }
       });
@@ -123,6 +125,7 @@ export class AppComponent {
 
     public goHomePage(){
         window.location.href = "./#/index";
+        this.searchCourse();
     }
 
     public goMaintainPage(){

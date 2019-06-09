@@ -15,6 +15,8 @@ import { CourseService } from 'src/app/service/course.service';
 import { ShoppingService } from 'src/app/service/shopping.service';
 import { CustomerFooterComponent } from 'src/app/widget/customer-footer/customer-footer.component'
 import { FacebookService } from 'ngx-facebook';
+import { AuthGuardService } from 'src/app/service/authguard.service';
+import { MaintainPageComponent } from 'src/app/page/maintain/maintain-page.component';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { FacebookService } from 'ngx-facebook';
     UserService,
     CourseService,
     ShoppingService,
-    FacebookService
+    FacebookService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

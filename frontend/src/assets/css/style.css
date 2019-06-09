@@ -846,3 +846,14 @@ body {
 .btn-maintain-delete{
     background: #EC5252;
 }
+
+.course-img-preview{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.invalid-message{
+    color: #f0506e;
+    font-family: 'Noto Sans TC' !important;
+    font-size: 12px;
+}

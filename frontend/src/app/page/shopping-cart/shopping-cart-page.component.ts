@@ -40,6 +40,7 @@ export class ShoppingCartPageComponent {
     }
 
     public calcTotalPrice(){
+        this.totalPrice = 0;
         this.courseList.forEach(course=>{
             this.totalPrice += course.price;
         });

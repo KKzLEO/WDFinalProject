@@ -16,7 +16,39 @@ export class ApiUrlConfigService {
         return this.apiRootUrl + "/course";
     }
 
+    get apiCreateCourseUrl():string{
+        return this.apiCourseUrl + "/create";
+    }
+
+    get apiUpdateCourseUrl():string{
+        return this.apiCourseUrl + "/update";
+    }
+
+    get apiDeleteCourseUrl():string{
+        return this.apiCourseUrl + "/delete";
+    }
+
+    get apiCodeUrl():string{
+        return this.apiRootUrl + "/code";
+    }
+
     get apiGetCourseImageUrl():string{
         return this.apiCourseUrl + "/image/";
+    }
+
+    get apiUploadImageUrl():string{
+        return this.apiCourseUrl + "/uploadimage";
+    }
+
+    get validateTokenUrl():string{
+        return this.apiRootUrl + "/access/validatetoken";
+    }
+
+    get apiGetCourseCatgory(){
+        return this.apiCodeUrl + "/coursecategory";
+    }
+
+    get apiGetTeacherList(){
+        return this.apiCodeUrl + "/teacherlist";
     }
 }

@@ -44,10 +44,16 @@ namespace WD.Dao.Course
                                   ,A.REQUIREMENT_TEXT AS RequirementText
                                   ,A.INS_TEXT AS InsText
                                   ,A.TARGET_TEXT AS TargetText
+                                  ,A.SHORT_INTRO_TEXT AS ShortIntroText
                             FROM COURSE AS A JOIN TEACHERS AS B ON A.COURSE_SERIL_NO = B.COURSE_SERIL_NO
                             JOIN USERS AS C ON B.PER_SERIL_NO = C.PER_SERIL_NO
                             JOIN COURSE_CATEGORY_CODE AS D ON A.CATEGORY_CODE = D.CATEGORY_CODE
                             WHERE 1=1 ";
+            if(arg == null)
+            {
+                arg = new CourseFilterModel();
+            }
+
             if (!string.IsNullOrEmpty(arg.Name))
             {
                 sql += "AND COURSE_NAME LIKE @CourseName ";
@@ -75,7 +81,85 @@ namespace WD.Dao.Course
             }
         }
 
-        public bool DeleteCourse(string courseSerilNo) {
+        public List<CourseDataModel> CreateCourse(CourseDataModel newCourse)
+        {
+            string sql = @"EXEC sp_create_course @CourseName,
+                                                 @CategoryCode, 
+                                                 @Desc, 
+                                                 @CreateUser,
+                                                 @Price, 
+                                                 @CourseImageName,
+                                                 @TtlHr,
+                                                 @LearningText,
+                                                 @RequirementText,
+                                                 @InsText,
+                                                 @TargetText,
+                                                 @ShortIntroText,
+                                                 @TeacherPerSerilNo";
+            object parameters = new
+            {
+                CourseName = newCourse.CourseName,
+                CategoryCode = newCourse.CategoryCode,
+                Desc = newCourse.Description,
+                CreateUser = "Administrator",
+                Price = newCourse.Price,
+                CourseImageName = newCourse.CourseImageName,
+                TtlHr = newCourse.TtlHr,
+                LearningText= newCourse.LearningText,
+                RequirementText = newCourse.RequirementText,
+                InsText = newCourse.InsText,
+                TargetText = newCourse.TargetText,
+                ShortIntroText = newCourse.ShortIntroText,
+                TeacherPerSerilNo = newCourse.TeacherPerSerilNo
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                List<CourseDataModel> result = connection.Query<CourseDataModel>(sql, parameters).ToList();
+                return result;
+            }
+
+        }
+
+        public List<CourseDataModel> UpdateCourse(CourseDataModel newCourse)
+        {
+            string sql = @"EXEC sp_update_course @CourseName,
+                                                 @CategoryCode, 
+                                                 @Desc,
+                                                 @Price, 
+                                                 @CourseImageName,
+                                                 @TtlHr,
+                                                 @LearningText,
+                                                 @RequirementText,
+                                                 @InsText,
+                                                 @TargetText,
+                                                 @ShortIntroText,
+                                                 @TeacherPerSerilNo,
+                                                 @CourseSerilNo";
+            object parameters = new
+            {
+                CourseName = newCourse.CourseName,
+                CategoryCode = newCourse.CategoryCode,
+                Desc = newCourse.Description,
+                Price = newCourse.Price,
+                CourseImageName = newCourse.CourseImageName,
+                TtlHr = newCourse.TtlHr,
+                LearningText = newCourse.LearningText,
+                RequirementText = newCourse.RequirementText,
+                InsText = newCourse.InsText,
+                TargetText = newCourse.TargetText,
+                ShortIntroText = newCourse.ShortIntroText,
+                TeacherPerSerilNo = newCourse.TeacherPerSerilNo,
+                CourseSerilNo = newCourse.CourseSerilNo
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                List<CourseDataModel> result = connection.Query<CourseDataModel>(sql, parameters).ToList();
+                return result;
+            }
+
+        }
+
+        public List<CourseDataModel> DeleteCourse(string courseSerilNo) {
             string sql = @"Delete COURSE WHERE COURSE_SERIL_NO = @CourseSerilNo";
             object parameters = new
             {
@@ -83,8 +167,8 @@ namespace WD.Dao.Course
             };
             using (var connection = new SqlConnection(this.GetDbConnectionString()))
             {
-                string result = connection.ExecuteScalar(sql, parameters).ToString();
-                return true;
+                connection.ExecuteScalar(sql, parameters);
+                return this.SearchCourse(new CourseFilterModel());
             }
         }
     }

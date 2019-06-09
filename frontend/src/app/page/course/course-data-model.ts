@@ -23,4 +23,6 @@ export class CourseDataModel{
     requirementText:string;
     insText:string;
     targetText:string;
+    shortIntroText : string;
+    courseImageFile: File;
 }

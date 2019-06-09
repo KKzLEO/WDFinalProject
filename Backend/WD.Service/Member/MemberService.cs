@@ -20,5 +20,10 @@ namespace WD.Service.Member
         {
             return this.MemberDao.Register(member);
         }
+
+        public bool IsAdmin(MemberDataModel member)
+        {
+            return this.MemberDao.IsAdmin(member);
+        }
     }
 }

@@ -29,6 +29,8 @@ export class IndexPageComponent{
     @ViewChild("accessComponent") accessComponent : AccessComponent;
 
     ngOnInit(){
+        let arg = new CourseFilterModel();
+        this.courseService.searchCourse(arg);
         this.router.events.subscribe((evt) => {
             if (!(evt instanceof NavigationEnd)) {
                 return;
