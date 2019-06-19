@@ -19,3 +19,7 @@ http://kkleo.ddns.net/WD/#/index
 5) 系統管理員可以管理課程(CRUD)
 6) 系統管理員可以管理會員資料(CRUD)
 
+前端run：
+1) cd frontend
+2) npm install
+3) ng serve
