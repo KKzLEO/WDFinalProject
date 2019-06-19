@@ -11,6 +11,7 @@ import { CoursePageComponent } from 'src/app/page/course/course-page.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MaintainUserPageComponent } from 'src/app/page/maintain/maintain-user-page.component';
 @NgModule({
   imports: [
     AppRoutingModule,
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TeachersPageComponent,
     CourseListPageComponent,
     MaintainPageComponent,
+    MaintainUserPageComponent,
     CoursePageComponent
   ],
   exports: [

@@ -21,5 +21,15 @@ namespace WD.Service.Code
         public List<CodeDataModel> GetTeacherList() {
             return codeDao.GetTeacherList();
         }
+
+        public List<CodeDataModel> GetGenderCode()
+        {
+            return codeDao.GetGenderCode();
+        }
+
+        public List<CodeDataModel> GetTitleCode()
+        {
+            return codeDao.GetTitleCode();
+        }
     }
 }

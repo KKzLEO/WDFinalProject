@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Security;
+using WD.Model;
 using WD.Model.Member;
 using WD.Models;
 using WD.Service.Member;
@@ -49,6 +51,7 @@ namespace WD.Controllers
             
             return Ok(apiResult);
         }
+
         [Route("register")]
         [HttpPost()]
         public IHttpActionResult Register(MemberDataModel member) {
@@ -76,9 +79,158 @@ namespace WD.Controllers
             return Ok(apiResult);
         }
 
+        [Route("queryuser")]
+        [Authorize()]
+        [HttpPost]
+        public IHttpActionResult QueryUserData(MemberFilterModel arg) 
+        {
+            ApiResult apiResult = new ApiResult();
+            MemberDataModel user = this.GetUser();
+            if (user == null || !MemberService.IsAdmin(user))
+            {
+                apiResult.Message = "非法使用";
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                return Ok(apiResult);
+            }
+            try
+            {
+                apiResult.Data = this.MemberService.QueryUserData(arg);
+                apiResult.Message = "查詢成功";
+                apiResult.Status = Models.Enum.ApiStatus.Success;
+            }
+            catch (Exception e)
+            {
+                apiResult.Message = "系統錯誤，請聯絡系統管理員";
+                apiResult.Status = Models.Enum.ApiStatus.Fail;
+            }
+            return Ok(apiResult);
+        }
+
+        [Route("createuser")]
+        [Authorize()]
+        [HttpPost]
+        public IHttpActionResult CreateUserByAdmin(MemberDataModel member)
+        {
+            ApiResult apiResult = new ApiResult();
+            MemberDataModel user = this.GetUser();
+            if (user == null || !MemberService.IsAdmin(user))
+            {
+                apiResult.Message = "非法使用";
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                return Ok(apiResult);
+            }
+
+            member.Password = WD.Common.Utility.SecurityUtility.AESEnCrypt(member.Password);
+
+            this.CheckUserData(member, "create", ref apiResult);
+            
+            if(apiResult.Status == Models.Enum.ApiStatus.CustomerError)
+            {
+                return Ok(apiResult);
+            }
+
+            try
+            {
+                bool isFinishRegister = this.MemberService.Register(member);
+                if (isFinishRegister)
+                {
+                    apiResult.Data = this.MemberService.QueryUserData(new MemberFilterModel());
+                    apiResult.Message = "新增成功";
+                    apiResult.Status = Models.Enum.ApiStatus.Success;
+                }
+                else
+                {
+                    apiResult.Message = "新增失敗，已有相同帳號";
+                    apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                }
+            }
+            catch (Exception e)
+            {
+                apiResult.Message = "系統錯誤，請聯絡系統管理員";
+                apiResult.Status = Models.Enum.ApiStatus.Fail;
+            }
+            return Ok(apiResult);
+        }
+
+        [Route("updateuser")]
+        [Authorize()]
+        [HttpPost]
+        public IHttpActionResult UpdateUserData(MemberDataModel member)
+        {
+            ApiResult apiResult = new ApiResult();
+            MemberDataModel user = this.GetUser();
+            if (user == null || !MemberService.IsAdmin(user))
+            {
+                apiResult.Message = "非法使用";
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                return Ok(apiResult);
+            }
+            try
+            {
+                if (member.IsModifyPassword)
+                {
+                    member.Password = WD.Common.Utility.SecurityUtility.AESEnCrypt(member.Password);
+                }
+                bool isSuccesful = this.MemberService.UpdateUserData(member);
+                if (isSuccesful)
+                {
+                    apiResult.Data = this.MemberService.QueryUserData(new MemberFilterModel());
+                    apiResult.Message = "更新成功";
+                    apiResult.Status = Models.Enum.ApiStatus.Success;
+                }
+                else
+                {
+                    apiResult.Message = "更新失敗";
+                    apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                }
+            }
+            catch
+            {
+                apiResult.Message = "系統錯誤，請聯絡系統管理員";
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+            }
+            return Ok(apiResult);
+        }
+
+
+        [Route("deleteuser")]
+        [Authorize()]
+        [HttpPost]
+        public IHttpActionResult DeleteUserData(MemberDataModel member)
+        {
+            ApiResult apiResult = new ApiResult();
+            MemberDataModel user = this.GetUser();
+            if (user == null || !MemberService.IsAdmin(user)) {
+                apiResult.Message = "非法使用";
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                return Ok(apiResult);
+            }
+            try
+            {
+                SqlResult sqlResult = this.MemberService.DeleteUserData(member.PerSerilNo);
+                if (sqlResult.Status == "success")
+                {
+                    apiResult.Data = this.MemberService.QueryUserData(new MemberFilterModel());
+                    apiResult.Message = sqlResult.Message;
+                    apiResult.Status = Models.Enum.ApiStatus.Success;
+                }
+                else
+                {
+                    apiResult.Message = sqlResult.Message;
+                    apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                }
+            }
+            catch
+            {
+                apiResult.Message = "系統錯誤，請聯絡系統管理員";
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+            }
+            return Ok(apiResult);
+        }
+
         [Route("logout")]
         [HttpPost()]
-        //[Authorize()]
+        [Authorize()]
         public IHttpActionResult Logout() {
             this.ClearCookie();
             ApiResult apiResult = new ApiResult();
@@ -157,5 +309,43 @@ namespace WD.Controllers
             }
             return null;
         }
+
+        private void CheckUserData(MemberDataModel member, string operation, ref ApiResult apiResult)
+        {
+            List<string> errors = new List<string>();
+            Regex rgx4Email = new Regex(@"^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$");
+            Regex rgx4Phone = new Regex(@"^[0-9]*$");
+            switch (operation)
+            {
+                case "create":
+                    if (string.IsNullOrEmpty(member.Account)) { errors.Add("請輸入帳號"); }
+                    if (string.IsNullOrEmpty(member.Password)) { errors.Add("請輸入密碼"); }
+                    if (string.IsNullOrEmpty(member.Phone)) { errors.Add("請輸入電話"); }
+                    if (string.IsNullOrEmpty(member.CName)) { errors.Add("請輸入中文名字"); }
+                    if (string.IsNullOrEmpty(member.EName)) { errors.Add("請輸入英文名字"); }
+                    if (string.IsNullOrEmpty(member.TitleCode)){ errors.Add("請選擇職位"); }
+                    if(!rgx4Email.IsMatch(member.Email)) { errors.Add("信箱格式錯誤"); }
+                    if (!rgx4Phone.IsMatch(member.Phone)) { errors.Add("聯絡電話格式錯誤"); }
+                    break;
+                case "update":
+                    if (string.IsNullOrEmpty(member.Account)) { errors.Add("請輸入帳號"); }
+                    if (string.IsNullOrEmpty(member.Password)) { errors.Add("請輸入密碼"); }
+                    if (string.IsNullOrEmpty(member.Phone)) { errors.Add("請輸入電話"); }
+                    if (string.IsNullOrEmpty(member.CName)) { errors.Add("請輸入中文名字"); }
+                    if (string.IsNullOrEmpty(member.EName)) { errors.Add("請輸入英文名字"); }
+                    if (string.IsNullOrEmpty(member.TitleCode)) { errors.Add("請選擇職位"); }
+                    if (!rgx4Email.IsMatch(member.Email)) { errors.Add("信箱格式錯誤"); }
+                    if (!rgx4Phone.IsMatch(member.Phone)) { errors.Add("聯絡電話格式錯誤"); }
+                    break;
+            }
+            if(errors.Count() > 0)
+            {
+                apiResult.Message = String.Join(", ", errors.ToArray());
+                apiResult.Status = Models.Enum.ApiStatus.CustomerError;
+                return;
+            }
+        }
+
+        //private bool 
     }
 }

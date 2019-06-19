@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WD.Model;
 using WD.Model.Member;
 
 namespace WD.Dao.Member
@@ -19,7 +20,6 @@ namespace WD.Dao.Member
         {
             return WD.Common.Utility.ConfigUtility.GetDbConnectionString("DBConnection");
         }
-
 
         public MemberDataModel Login(MemberDataModel member)
         {
@@ -50,7 +50,7 @@ namespace WD.Dao.Member
         }
 
         public bool Register(MemberDataModel member) {
-            string sql = @"EXEC sp_user_register @Account,@Password,@Email,@TitleCode,@UserId,@EName,@CName,@FbId";
+            string sql = @"EXEC sp_user_register @Account,@Password,@Email,@TitleCode,@UserId,@EName,@CName,@FbId,@GenderCode,@Phone,@Birthday";
 
             object parameters = new
             {
@@ -61,13 +61,107 @@ namespace WD.Dao.Member
                 UserId = member.EName == null ? string.Empty : member.EName.Replace(" ", "_"),
                 EName = member.EName == null ? string.Empty : member.EName,
                 CName = member.CName == null ? string.Empty : member.CName,
-                FbId = member.FbId == null ? string.Empty :member.FbId
+                FbId = member.FbId == null ? string.Empty :member.FbId,
+                GenderCode = member.GenderCode == null ? "0" : member.GenderCode,
+                Phone = member.Phone == null ? string.Empty : member.Phone,
+                Birthday = member.Birthday == null ? string.Empty : member.Birthday
             };
             using (var connection = new SqlConnection(this.GetDbConnectionString()))
             {
                 string result = connection.ExecuteScalar(sql, parameters).ToString();
                 if (result == "true") return true;
                 else return false;
+            }
+        }
+
+        public List<MemberDataModel> QueryUserData(MemberFilterModel arg)
+        {
+            string sql = @"SELECT U.ACCOUNT AS Account
+                               ,PASSWORD AS Password
+	                           ,EMAIL AS Email
+	                           ,PHONE AS Phone
+	                           ,CONVERT(varchar(100), BIRTHDAY, 23) As Birthday
+	                           ,G.GENDER_CODE AS GenderCode
+	                           ,G.GENDER_TEXT As GenderText
+	                           ,U.USER_ID AS UserId
+	                           ,U.E_NAME AS EName
+	                           ,U.C_NAME AS CName
+	                           ,U.PER_SERIL_NO AS PerSerilNo
+	                           ,T.TITLE_NAME AS TitleName
+	                           ,T.TITLE_CODE AS TitleCode
+                        FROM USERS AS U
+                        LEFT JOIN GENDER_CODE AS G
+                        ON U.GENDER_CODE = G.GENDER_CODE
+                        LEFT JOIN TITLE_CODE AS T
+                        ON U.TITLE_CODE = T.TITLE_CODE 
+                        WHERE U.IS_OUT <> 1 ";
+            if (arg == null)
+            {
+                arg = new MemberFilterModel();
+            }
+
+            if (!string.IsNullOrEmpty(arg.Account))
+            {
+                sql += "AND ACCOUNT LIKE @Account ";
+            }
+            object parameters = new
+            {
+                Account = arg.Account == null ? string.Empty : '%' + arg.Account + '%'
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                List<MemberDataModel> result = connection.Query<MemberDataModel>(sql, parameters).ToList();
+                return result;
+            }
+        }
+
+        public bool UpdateUserData(MemberDataModel member)
+        {
+            string sql = @"UPDATE [dbo].[USERS]
+                           SET [EMAIL] = @Email
+                              ,[TITLE_CODE] = @TitleCode
+                              ,[MOD_DATE] = GETDATE()
+                              ,[E_NAME] = @EName
+                              ,[C_NAME] = @CName
+                              ,[USER_ID] = @UserId
+                              ,[PHONE] = @Phone
+                              ,[BIRTHDAY] = @Birthday
+                              ,[GENDER_CODE] = @GenderCode
+                              ,[IS_OUT] = @IsOut
+                              ,[PASSWORD] = @Password
+                         WHERE USERS.PER_SERIL_NO = @PerSerilNo";
+            object parameters = new
+            {
+                Email = member.Email == null ? string.Empty : member.Email,
+                TitleCode = member.TitleCode,
+                EName = member.EName,
+                CName = member.CName,
+                UserId = member.EName.Replace(" ", "_"),
+                Phone = member.Phone,
+                Birthday = member.Birthday == null ? string.Empty : member.Birthday,
+                GenderCode = member.GenderCode == null ? string.Empty : member.GenderCode,
+                IsOut = member.IsOut,
+                PerSerilNo = member.PerSerilNo,
+                Password = member.Password
+            };
+            using(var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                int affectedRows = connection.Execute(sql, parameters);
+                return affectedRows != 0;
+            }
+        }
+
+        public SqlResult DeleteUserData(string perSerilNo)
+        {
+            string sql = @"EXEC sp_remove_user @PerSerilNo";
+            object parameters = new
+            {
+                PerSerilNo = perSerilNo == null ? string.Empty : perSerilNo 
+            };
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                SqlResult sqlResult = connection.Query<SqlResult>(sql,parameters).ToList().FirstOrDefault();
+                return sqlResult;
             }
         }
 

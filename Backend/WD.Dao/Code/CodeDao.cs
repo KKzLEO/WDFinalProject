@@ -47,5 +47,31 @@ namespace WD.Dao.Code
             }
         }
 
+        public List<CodeDataModel> GetGenderCode()
+        {
+            string sql = @"SELECT GENDER_CODE AS Id,
+	                                GENDER_CODE AS Value,
+	                                GENDER_TEXT AS Text
+                            FROM GENDER_CODE";
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                List<CodeDataModel> result = connection.Query<CodeDataModel>(sql).ToList();
+                return result;
+            }
+        }
+
+        public List<CodeDataModel> GetTitleCode()
+        {
+            string sql = @"SELECT TITLE_CODE AS Id,
+	                                TITLE_CODE AS Value,
+	                                TITLE_NAME AS Text
+                            FROM TITLE_CODE";
+            using (var connection = new SqlConnection(this.GetDbConnectionString()))
+            {
+                List<CodeDataModel> result = connection.Query<CodeDataModel>(sql).ToList();
+                return result;
+            }
+        }
+
     }
 }

@@ -32,5 +32,25 @@ namespace WD.Controllers
             apiResult.Message = "success";
             return Ok(apiResult);
         }
+
+        [Route("gendercode")]
+        public IHttpActionResult GetGenderCode()
+        {
+            ApiResult apiResult = new ApiResult();
+            apiResult.Data = codeService.GetGenderCode();
+            apiResult.Status = Models.Enum.ApiStatus.Success;
+            apiResult.Message = "success";
+            return Ok(apiResult);
+        }
+
+        [Route("titlecode")]
+        public IHttpActionResult GetTitleCode()
+        {
+            ApiResult apiResult = new ApiResult();
+            apiResult.Data = codeService.GetTitleCode();
+            apiResult.Status = Models.Enum.ApiStatus.Success;
+            apiResult.Message = "success";
+            return Ok(apiResult);
+        }
     }
 }

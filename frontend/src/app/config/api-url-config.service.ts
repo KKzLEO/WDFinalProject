@@ -51,4 +51,28 @@ export class ApiUrlConfigService {
     get apiGetTeacherList(){
         return this.apiCodeUrl + "/teacherlist";
     }
+
+    get apiUpdateUserUrl(){
+        return this.apiAccessUrl + "/updateuser";
+    }
+
+    get apiCreateUserUrl(){
+        return this.apiAccessUrl + "/createuser";
+    }
+
+    get apiDeleteUserUrl(){
+        return this.apiAccessUrl + "/deleteuser";
+    }
+
+    get apiQueryUserUrl(){
+        return this.apiAccessUrl + "/queryuser";
+    }
+
+    get apiGenderCodeUrl(){
+        return this.apiCodeUrl + '/gendercode';
+    }
+
+    get apiTitleCodeUrl(){
+        return this.apiCodeUrl + '/titlecode';
+    }
 }

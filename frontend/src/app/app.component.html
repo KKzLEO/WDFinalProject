@@ -22,6 +22,7 @@
                             <li (click)="goTeachersPagePage()"><a>師資介紹</a></li>
                             <li (click)="goShoppingCartPage()"><a>購物車</a></li>
                             <li *ngIf="isAdmin" (click)="goMaintainPage()"><a>課程管理</a></li>
+                            <li *ngIf="isAdmin" (click)="goMaintainUserPage()"><a>會員管理</a></li>
                             <li class="uk-margin-top "><button type="button " class="uk-button uk-width-1-1" (click)="logout()" [ngClass]="themeClass('btn-login')">登出</button></li>
                         </ul>
                     </div>
@@ -40,6 +41,7 @@
                 <button type="button" (click)="goTeachersPagePage()" class="uk-button uk-button-text btn-go-teacher-page" [ngClass]="themeClass('btn-go-teacher-page')">師資介紹</button>
                 <button type="button" (click)="goShoppingCartPage()" [ngClass]="themeClass('btn-go-shopping-cart')" class="uk-button uk-button-text">購物車<span class="shopping-cart-item-number" *ngIf="courseList.length != 0">{{ courseList.length }}</span></button>
                 <button *ngIf="isAdmin" (click)="goMaintainPage()" type="button" class="uk-button uk-button-text " [ngClass]="themeClass('btn-course-maintain')">課程管理</button>
+                <button *ngIf="isAdmin" (click)="goMaintainUserPage()" type="button" class="uk-button uk-button-text " [ngClass]="themeClass('btn-course-maintain')">會員管理</button>
                 <button type="button" class="uk-button " (click)="logout()" [ngClass]="themeClass('btn-login')">登出</button>
             </div>
         </div>

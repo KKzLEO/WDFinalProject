@@ -66,7 +66,9 @@
     <Compile Include="Course\CourseDataModel.cs" />
     <Compile Include="Course\CourseFilterModel.cs" />
     <Compile Include="Member\MemberDataModel.cs" />
+    <Compile Include="Member\MemberFilterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

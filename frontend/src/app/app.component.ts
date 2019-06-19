@@ -132,6 +132,10 @@ export class AppComponent {
       this.router.navigateByUrl('maintain');
     }
 
+    public goMaintainUserPage(){
+      this.router.navigateByUrl('maintain-user');
+    }
+
     public changeNavTheme(theme){
         this.theme = theme;
     }

@@ -1,0 +1,213 @@
+<div class="shopping-cart-header">
+    <h1 class="shopping-cart-header-title uk-text-left uk-container align-center">
+        <i class="material-icons text-white">settings</i> Setting / 會員管理
+    </h1>
+</div>
+
+<div class="uk-container align-center maintain-content">
+    <button (click)="openWindow('create')" class="uk-button uk-button-default uk-align-right" type="button">新增會員</button>
+    <table class="user-table uk-table uk-table-small uk-table-justify uk-table-middle uk-table-divider uk-table-hover">
+        <thead>
+            <tr>
+                <th class="uk-width-small">帳號</th>
+                <th>信箱</th>
+                <th>電話</th>
+                <th>生日</th>
+                <th>性別</th>
+                <th>中文名字</th>
+                <th>英文名字</th>
+                <th>職位</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of userDataList;let i =index">
+                <td>{{ user.account }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.phone }}</td>
+                <td>{{ user.birthday }}</td>
+                <td>{{ user.genderText }}</td>
+                <td>{{ user.cName }}</td>
+                <td>{{ user.eName }}</td>
+                <td>{{ user.titleName }}</td>
+                <td><button (click)="openWindow('update',i)" class="uk-button uk-button-default" type="button">修改</button></td>
+                <td><button *ngIf="user.titleCode != '0'" (click)="deleteUser(i)" class="uk-button btn-maintain-delete text-white" type="button">刪除</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="uk-flex-top" uk-modal #createUserWindow> 
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+        <div class="login-heading">
+            <h1 *ngIf="op=='create'" class="register-title">新的會員</h1>
+            <h1 *ngIf="op=='update'" class="register-title">修改會員</h1>
+        </div>
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <form class="uk-form-stacked" [formGroup]="userDataForm">
+            <div class="uk-margin" *ngIf="op==='create'">
+                <label class="uk-form-label" for="form-stacked-text">*帳號</label>
+                <div class="uk-form-controls">
+                    <input formControlName="account" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('account').touched) && userDataForm.get('account').invalid,
+                                'uk-form-success': userDataForm.get('account').touched && !userDataForm.get('account').invalid}"
+                    [(ngModel)]="userData.account" 
+                    name="account" 
+                    class="uk-input" 
+                    type="text" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('account').touched) && userDataForm.get('account').invalid" class="invalid-message">請填寫帳號</div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">*密碼</label>
+                <div class="uk-form-controls">
+                    <input formControlName="password" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('password').touched) && userDataForm.get('password').invalid,
+                                'uk-form-success': userDataForm.get('password').touched && !userDataForm.get('password').invalid}"
+                    [(ngModel)]="userData.password" 
+                    name="password" 
+                    class="uk-input" 
+                    type="password" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('password').touched) && userDataForm.get('password').invalid" class="invalid-message">請填寫密碼</div>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">*確認密碼</label>
+                <div class="uk-form-controls">
+                    <input formControlName="confirmPassword" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('confirmPassword').touched) && userDataForm.get('confirmPassword').invalid,
+                                'uk-form-success': userDataForm.get('confirmPassword').touched && !userDataForm.get('confirmPassword').invalid}"
+                    [(ngModel)]="userData.confirmPassword" 
+                    name="confirmPassword" 
+                    class="uk-input" 
+                    type="password" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('confirmPassword').touched) && userDataForm.get('confirmPassword').invalid">
+                        <div *ngIf="userDataForm.get('confirmPassword').errors.required" class="invalid-message">請確認密碼</div>
+                        <div *ngIf="userDataForm.get('confirmPassword').errors.confirmPassword" class="invalid-message">密碼不相同</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">信箱</label>
+                <div class="uk-form-controls">
+                    <input formControlName="email" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('email').touched) && userDataForm.get('email').invalid,
+                                'uk-form-success': userDataForm.get('email').touched && !userDataForm.get('email').invalid}"
+                    [(ngModel)]="userData.email" 
+                    name="email" 
+                    class="uk-input" 
+                    type="text" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('email').touched) && userDataForm.get('email').invalid">
+                        <div *ngIf = "userDataForm.get('email').errors.required" class="invalid-message">請填寫信箱</div>
+                        <div *ngIf = "userDataForm.get('email').errors.pattern" class="invalid-message">信箱格式錯誤</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">*電話</label>
+                <div class="uk-form-controls">
+                    <input formControlName="phone" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('phone').touched) && userDataForm.get('phone').invalid,
+                                'uk-form-success': userDataForm.get('phone').touched && !userDataForm.get('phone').invalid}"
+                    [(ngModel)]="userData.phone" 
+                    name="phone" 
+                    class="uk-input" 
+                    type="text" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('phone').touched) && userDataForm.get('phone').invalid">
+                        <div *ngIf="userDataForm.get('phone').errors.required" class="invalid-message">請填寫電話</div>
+                        <div *ngIf="userDataForm.get('phone').errors.pattern" class="invalid-message">格式錯誤</div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">生日</label>
+                <div class="uk-form-controls">
+                    <input formControlName="birthday" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('birthday').touched) && userDataForm.get('birthday').invalid,
+                                'uk-form-success': userDataForm.get('birthday').touched && !userDataForm.get('birthday').invalid}"
+                    [(ngModel)]="userData.birthday" 
+                    name="birthday" 
+                    class="uk-input" 
+                    type="date" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('birthday').touched) && userDataForm.get('birthday').invalid" class="invalid-message">請填寫生日</div>
+                </div>
+            </div>
+            
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-select">性別</label>
+                <div class="uk-form-controls">
+                    <select name="genderCode" 
+                    class="uk-select"
+                    formControlName="genderCode" 
+                    [(ngModel)]="userData.genderCode"
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('genderCode').touched) && userDataForm.get('genderCode').invalid,
+                                'uk-form-success': userDataForm.get('genderCode').touched && !userDataForm.get('genderCode').invalid}"  >
+                        <option *ngFor="let opt of genderCodeData" [value]="opt.value">{{ opt.text }}</option>
+                    </select>
+                    <div *ngIf="(isSubmit || userDataForm.get('genderCode').touched) && userDataForm.get('genderCode').invalid" class="invalid-message">請選擇性別</div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-select">*職位</label>
+                <div class="uk-form-controls">
+                    <select name="titleCode" 
+                    class="uk-select"
+                    formControlName="titleCode" 
+                    [(ngModel)]="userData.titleCode"
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('titleCode').touched) && userDataForm.get('titleCode').invalid,
+                                'uk-form-success': userDataForm.get('titleCode').touched && !userDataForm.get('titleCode').invalid}"  >
+                        <option *ngFor="let opt of titleCodeData" [value]="opt.value">{{ opt.text }}</option>
+                    </select>
+                    <div *ngIf="(isSubmit || userDataForm.get('titleCode').touched) && userDataForm.get('titleCode').invalid" class="invalid-message">請選擇職位</div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">*中文名字</label>
+                <div class="uk-form-controls">
+                    <input formControlName="cName" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('cName').touched) && userDataForm.get('cName').invalid,
+                                'uk-form-success': userDataForm.get('cName').touched && !userDataForm.get('cName').invalid}"
+                    [(ngModel)]="userData.cName" 
+                    name="cName" 
+                    class="uk-input" 
+                    type="text" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('cName').touched) && userDataForm.get('cName').invalid" class="invalid-message">請填寫中文名字</div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label class="uk-form-label" for="form-stacked-text">*英文名字</label>
+                <div class="uk-form-controls">
+                    <input formControlName="eName" 
+                    [ngClass]="{'uk-form-danger':(isSubmit || userDataForm.get('eName').touched) && userDataForm.get('eName').invalid,
+                                'uk-form-success': userDataForm.get('eName').touched && !userDataForm.get('eName').invalid}"
+                    [(ngModel)]="userData.eName" 
+                    name="eName" 
+                    class="uk-input" 
+                    type="text" 
+                     >
+                    <div *ngIf="(isSubmit || userDataForm.get('eName').touched) && userDataForm.get('eName').invalid" class="invalid-message">請填寫英文名字</div>
+                </div>
+            </div>
+
+            <button *ngIf="op=='create'" (click)="createUser()" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">新增會員</button>
+            <div *ngIf="op=='create'" class="uk-text-center">
+                <a class="right-now-register-text uk-text-center" (click)="clearUserData()">清除</a>
+            </div>
+            <button *ngIf="op=='update'" (click)="updateUser()" class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">修改會員</button>
+        </form>
+    </div>
+</div>

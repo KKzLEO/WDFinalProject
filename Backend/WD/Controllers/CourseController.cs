@@ -21,7 +21,6 @@ using WD.Service.Member;
 namespace WD.Controllers
 {
     [RoutePrefix("course")]
-    //[EnableCors("http://localhost:4200", "*", "*", SupportsCredentials = true)]
     public class CourseController : ApiController
     {
         private CourseService CourseService = new CourseService();
@@ -44,7 +43,8 @@ namespace WD.Controllers
         {
             MemberDataModel member = this.GetUser();
             ApiResult apiResult = new ApiResult();
-            if (member != null && MemberService.IsAdmin(member)) {
+            if (member != null && MemberService.IsAdmin(member))
+            {
                 apiResult.Data = this.CourseService.DeleteCourse(course.CourseSerilNo);
                 apiResult.Status = Models.Enum.ApiStatus.Success;
                 apiResult.Message = "刪除成功";
@@ -56,6 +56,12 @@ namespace WD.Controllers
             }
 
             return Ok(apiResult);
+
+            //ApiResult apiResult = new ApiResult();
+            //apiResult.Data = this.CourseService.DeleteCourse(course.CourseSerilNo);
+            //apiResult.Status = Models.Enum.ApiStatus.Success;
+            //apiResult.Message = "刪除成功";
+            //return Ok(apiResult);
         }
 
         [HttpGet()]
@@ -107,7 +113,7 @@ namespace WD.Controllers
             //ApiResult result = new ApiResult();
             //result.Data = CourseService.CreateCourse(newCourse);
             //return Ok(result);
-            
+
         }
 
         [Route("update")]
@@ -144,7 +150,8 @@ namespace WD.Controllers
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             MemberDataModel member = this.GetUser();
-            if (member == null || !MemberService.IsAdmin(member)) {
+            if (member == null || !MemberService.IsAdmin(member))
+            {
                 return Request.CreateResponse(HttpStatusCode.NotFound, dict);
             }
             try

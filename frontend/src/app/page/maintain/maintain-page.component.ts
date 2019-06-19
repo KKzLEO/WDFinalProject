@@ -185,9 +185,7 @@ export class MaintainPageComponent {
         this.isSubmit = true;
         if(this.newCourseForm.invalid) return;
         // 沒有更新圖片，直接送API
-        console.log(this.newCourseData.courseImageFile);
         if(this.newCourseData.courseImageFile == null || this.newCourseData.courseImageFile == undefined){
-            console.log("沒");
             this.proxy.proxyPost(this.configService.apiUpdateCourseUrl,this.newCourseData).subscribe(
                 r=>{
                     this.courseList = r.data;
