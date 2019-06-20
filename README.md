@@ -1,7 +1,7 @@
 # WDFinalProject
 
 伺服器位置：
-http://kkleo.ddns.net/WD/#/index
+http://e-learning.westus.cloudapp.azure.com/WD/#/index
 
 使用技術：
 1) Angular 6
